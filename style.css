@@ -239,6 +239,7 @@ footer {
     margin-bottom: 30px;
   }
 
+<<<<<<< HEAD
   .footer-section h3 {
     margin-bottom: 15px;
   }
@@ -246,4 +247,14 @@ footer {
   .footer-bottom {
     padding: 10px 30px;
   }
+=======
+    .footer-section h3 {
+        margin-bottom: 15px;
+    }
+    .footer-section h3 {
+        margin-bottom: 15px;
+    .footer-bottom {
+        padding: 10px 30px;
+    }
+>>>>>>> 93a86425646e8cf3b7fcf9712868f0c4031f5201
 }
