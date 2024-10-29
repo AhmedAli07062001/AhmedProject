@@ -44,15 +44,18 @@ body {
 .wrapper input:focus {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Define a valid box-shadow value */
 }
+.wrapper .password-info{
+    font-size:10px;
 
+}
 .wrapper .submit_btn {
-    padding: 16px;
+    padding: 16px 15px;
     font-weight: 500;
 }
 
 .wrapper .login_with {
-    padding: 15px;
-    font-size: 15px;
+    padding: 8px 15px;
+    font-size: 13px;
     font-weight: 500;
     transition: 0.3s ease-in-out;
 }
@@ -68,5 +71,5 @@ body {
 }
 
 .wrapper .login_with img {
-    max-width: 8%; /* Consider changing this to max-width: 100% for better responsiveness */
+    max-width: 7%; /* Consider changing this to max-width: 100% for better responsiveness */
 }
