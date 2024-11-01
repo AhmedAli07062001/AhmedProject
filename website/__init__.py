@@ -44,5 +44,9 @@ def create_app():
     @app.route('/New-Password')
     def new_password():
         return render_template('new password.html')  # Render the new password page
+    
+    @app.route('/chatbot')
+    def chatbot():
+        return render_template('chatbot.html') #render to the chatbot page
 
     return app

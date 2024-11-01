@@ -7,13 +7,12 @@
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-     <!-- <link rel="stylesheet" href="/website/static/css/home.css"> -->
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
     <header>
       <nav class="section__container nav__container">
-        <div class="nav__logo">Health<span>Care</span></div>
+        <div class="nav__logo">SpeechCare<span>Hub</span></div>
         <ul class="nav__links">
          <li class="link"><a href="#home">Home</a></li>
           <li class="link"><a href="#about">About Us</a></li>
@@ -21,7 +20,7 @@
           <li class="link"><a href="#pages">Pages</a></li>
           <li class="link"><a href="#blog">Blog</a></li>
         </ul>
-        <button class="btn">Contact Us</button>
+        <button class="btn"><a href="{{url_for('chatbot')}}">Contact Us</a></button>
       </nav>
       <div class="section__container header__container" id="home">
         <div class="header__content">
