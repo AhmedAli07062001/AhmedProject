@@ -9,12 +9,16 @@
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
 </head>
-<body>
+<body style="background-image: url('{{url_for('static',filename='images/bg.jpeg')}}');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;">
     <section class="wrapper">
         <div class="container">
             <div class="col-sm-8 offset-sm-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 text-center">
                 <div class="logo">
-                    <img src="https://iili.io/d8t0FpI.md.jpg" alt="SpeechCare Hub">
+                    <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="SpeechCare Hub">
+                    <span class="text-primary fs-4 fw-bolder ">SpeechCare Hub</span>
                 </div>
                 <form class="rounded bg-white shadow p-5"> 
                     <h3 class="text-dark fw-bolder fs-4 mb-2">Sign In to HILLTOP</h3>
@@ -33,27 +37,6 @@
                         <a href="{{ url_for('opt_verification') }}" class="text-primary fw-bold text-decoration-none">Forget Password?</a>
                     </div>
                     <button type="submit" class="btn btn-primary submit_btn w-100 my-4">Continue</button>
-                    <div class="text-center text-muted text-uppercase mb-3">Or</div>   
-                    
-            
-            
-                <a href="#" class="btn btn-light login-with w-100 mb-3 d-flex align-items-center justify-content-start"> 
-                            <img src="{{ url_for('static', filename='images/google-icon.svg') }}" class="img-fluid me-3" alt="Google" style="max-width: 24px;"> 
-                            Continue with Google
-                        </a>
-                     
-                        <a href="#" class="btn btn-light login-with w-100 mb-3 d-flex align-items-center justify-content-start"> 
-                            <img src="{{ url_for('static', filename='images/facebook-icon.svg') }}" class="img-fluid me-3" alt="Facebook" style="max-width: 24px;"> 
-                            Continue with Facebook
-                        </a>
-                  
-                        
-                    
-                        <a href="#" class="btn btn-light login-with w-100 mb-3 d-flex align-items-center justify-content-start"> 
-                            <img src="{{ url_for('static', filename='images/linkedin-icon.svg') }}" class="img-fluid me-3" alt="Linkedlin" style="max-width: 24px;"> 
-                            Continue with Linkedlin
-                        </a>
-                    
                 </form>
 
             </div>

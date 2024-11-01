@@ -21,8 +21,8 @@ body {
 
 /* Main CSS */
 .wrapper {
-    padding: 0 0 20px;
-    background-image: url("/website/static/images/bg.png");
+    padding: 0 0 80px;
+    background-image: url('/website/static/images/bg.jpeg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -35,7 +35,8 @@ body {
 }
 
 .wrapper .logo img {
-    max-width: 30%;
+    max-width: 25%;
+    padding: 10px;
 }
 
 .wrapper input {

@@ -9,12 +9,16 @@
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
 </head>
-<body>
+<body style="background-image: url('{{url_for('static',filename='images/bg.jpeg')}}');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;">
     <section class="wrapper">
         <div class="container">
             <div class="col-sm-8 offset-sm-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 text-center">
                 <div class="logo">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" alt="logo"> 
+                    <img src="{{ url_for('static', filename='images/logo1.png') }}" class="img-fluid" alt="logo">
+                    <span class="text-primary fs-4 fw-bolder ">SpeechCare Hub</span> 
                 </div>
                 <form class="rounded bg-white shadow p-5"> 
                     <h3 class="text-dark fw-bolder fs-4 mb-2">Create an Account</h3>
@@ -24,10 +28,6 @@
                     </div>
                     <div class="text-center text-muted text-uppercase mb-2">Or</div>   
 
-                    <a href="#" class="btn btn-light login-with w-100 mb-4 d-flex align-items-center justify-content-start"> 
-                        <img src="{{ url_for('static', filename='images/google-icon.svg') }}" class="img-fluid me-3" alt="Google" style="max-width: 24px;"> 
-                        Sign in with Google
-                    </a>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingFirstName" placeholder="name@example.com">
                         <label for="loatingFirstName">First Name</label>
@@ -44,7 +44,7 @@
                         <label for="floatingInput">Email address</label>
                     </div>
 
-                    <div class="form-floating mb-3">
+                    <!-- <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                         <span class="password-info mt-2">
@@ -61,13 +61,9 @@
                                 I Agree <a href="#">Terms and conditions</a>.
                                 </label>
                               </div>
-                            </div>
+                            </div> -->
                              <button type="submit" class="btn btn-primary submit_btn w-100 my-4">Continue</button>
-                    
-                        </a>
-                    
                 </form>
-
             </div>
         </div>
     </section>
