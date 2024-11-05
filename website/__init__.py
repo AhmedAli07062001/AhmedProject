@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 # Initialize the SQLAlchemy object
-# db = SQLAlchemy()
+db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
@@ -12,14 +12,14 @@ def create_app():
     # Uncomment this when setting up the database
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ahmed#2909@localhost/SpeechCareHub'
     
-    # Initialize the database
+    # # Initialize the database
     # db.init_app(app)
     
-    # Register blueprints (uncomment when using auth blueprint)
+    # # Register blueprints (uncomment when using auth blueprint)
     # from .auth import auth
     # app.register_blueprint(auth, url_prefix='/auth')
     
-    # Create tables if they don’t exist (uncomment for database setup)
+    # # Create tables if they don’t exist (uncomment for database setup)
     # with app.app_context():
     #     db.create_all()
 

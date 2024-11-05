@@ -9,21 +9,18 @@
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
 </head>
-<body style="background-image: url('{{url_for('static',filename='images/bg.jpeg')}}');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;">
+<body>
     <section class="wrapper">
         <div class="container">
             <div class="col-sm-8 offset-sm-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 text-center">
                 <div class="logo">
                     <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="SpeechCare Hub">
-                    <span class="text-primary fs-4 fw-bolder ">SpeechCare Hub</span>
+                    <span class="fs-2 fw-bolder" style="color: black;">SpeechCare Hub</span>
                 </div>
                 <form class="rounded bg-white shadow p-5"> 
-                    <h3 class="text-dark fw-bolder fs-4 mb-2">Sign In to HILLTOP</h3>
+                    <h3 class="text-dark fw-bolder fs-4 mb-2">Sign In to SCHUB</h3>
                     <div class="fw-normal text-muted mb-4">
-                        New Here? <a href="{{ url_for('sign_up') }}" class="text-primary fw-bold text-decoration-none">Create an Account</a> 
+                        New Here? <a href="{{ url_for('sign_up') }}" class="fw-bold text-decoration-none" style="color: rgba(18, 172, 142, 0.9);">Create an Account</a> 
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -34,9 +31,9 @@
                         <label for="floatingPassword">Password</label>
                     </div>
                     <div class="mt-2 text-end">
-                        <a href="{{ url_for('opt_verification') }}" class="text-primary fw-bold text-decoration-none">Forget Password?</a>
+                        <a href="{{ url_for('otp_verification') }}" class="fw-bold text-decoration-none" style="color: rgba(18, 172, 142, 0.9);">Forget Password?</a>
                     </div>
-                    <button type="submit" class="btn btn-primary submit_btn w-100 my-4">Continue</button>
+                    <button type="submit" class="btn submit_btn w-100 my-4" style="background: rgba(18, 172, 142, 0.9); color:white">Continue</button>
                 </form>
 
             </div>

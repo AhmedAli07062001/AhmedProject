@@ -12,36 +12,40 @@
   <body>
     <header>
       <nav class="section__container nav__container">
-        <div class="nav__logo">SpeechCare<span>Hub</span></div>
+        <div class="nav__logo">
+          <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="SpeechCare Hub">
+          SpeechCare<span>Hub</span></div>
         <ul class="nav__links">
          <li class="link"><a href="#home">Home</a></li>
           <li class="link"><a href="#about">About Us</a></li>
           <li class="link"><a href="#service">Services</a></li>
-          <li class="link"><a href="#pages">Pages</a></li>
-          <li class="link"><a href="#blog">Blog</a></li>
+          <li class="link"><a href="{{url_for('login')}}">Login</a></li>
+          <li class="link"><a href="{{url_for('sign_up')}}">Sign Up</a></li>
         </ul>
-        <button class="btn"><a href="{{url_for('chatbot')}}">Contact Us</a></button>
+        <div class="btn">Contact Us</div>
       </nav>
       <div class="section__container header__container" id="home">
         <div class="header__content">
-          <h1>Providing an Exceptional Patient Experience</h1>
+          <h1>Empowering Voices, One Therapy Session at a Time</h1>
           <p>
-            Welcome, where exceptional patient experiences are our priority.
-            With compassionate care, state-of-the-art facilities, and a
-            patient-centered approach, we're dedicated to your well-being. Trust
-            us with your health and experience the difference.
+            At SpeechCare Hub, we believe in giving patients the power
+             to reclaim their voice. Our innovative platform offers personalized
+              therapy, secure communication channels, and continuous support 
+              through every stage of recovery. With our commitment to both 
+              technology and empathy, we’re here to make speech therapy more 
+              effective, engaging, and accessible for all.
           </p>
-          <button class="btn">See Services</button>
+          <button class="btn"><a href="#service" style="color:white;"> See Services</a></button>
         </div>
         <div class="header__form">
-          <form>
+          <!-- <form>
             <h4>Book Now</h4>
             <input type="text" placeholder="First Name" />
             <input type="text" placeholder="Last Name" />
             <input type="text" placeholder="Address" />
             <input type="text" placeholder="Phone No." />
             <button class="btn form__btn">Book Appointment</button>
-          </form>
+          </form> -->
         </div>
       </div>
     </header>
@@ -59,29 +63,29 @@
       </div>
       <div class="service__grid">
         <div class="service__card">
-          <span><i class="ri-microscope-line"></i></span>
-          <h4>Laboratory Test</h4>
+          <span><i class="ri-mental-health-line"></i></span>
+          <h4>AI-Driven Therapy Plans</h4>
           <p>
-            Accurate Diagnostics, Swift Results: Experience top-notch Laboratory
-            Testing at our facility.
+            Our platform uses AI to develop customized therapy plans based on each patient’s
+             unique needs, ensuring optimal progress at every stage of their journey.
           </p>
           <a href="#">Learn More</a>
         </div>
         <div class="service__card">
-          <span><i class="ri-mental-health-line"></i></span>
-          <h4>Health Check</h4>
+          <span><i class="ri-computer-line"></i></span>
+          <h4>Real-Time Progress Monitoring</h4>
           <p>
-            Our thorough assessments and expert evaluations help you stay
-            proactive about your health.
+            Patients and therapists can easily track therapy milestones and receive
+             regular updates, helping both stay on top of treatment plans.
           </p>
           <a href="#">Learn More</a>
         </div>
         <div class="service__card">
           <span><i class="ri-hospital-line"></i></span>
-          <h4>General Dentistry</h4>
+          <h4>Interactive Chatbot Support</h4>
           <p>
-            Experience comprehensive oral care with Dentistry. Trust us to keep
-            your smile healthy and bright.
+            Our chatbot assists with everything from gathering patient details to scheduling
+             sessions, providing seamless and instant communication with the care team.
           </p>
           <a href="#">Learn More</a>
         </div>
@@ -91,33 +95,37 @@
       <div class="about__content">
         <h2 class="section__header">About Us</h2>
         <p>
-          Welcome to our healthcare website, your one-stop destination for
-          reliable and comprehensive health care information. We are committed
-          to promoting wellness and providing valuable resources to empower you
-          on your health journey.
+          Welcome to SpeechCare Hub, your trusted partner in speech therapy and 
+          personalized healthcare solutions. Our mission is to bring convenience,
+          compassion, and cutting-edge technology together to offer an exceptional
+          experience for patients and therapists alike. With features like
+          AI-driven therapy plans, real-time patient progress tracking, and
+          a secure blockchain record-keeping system, we’re redefining how 
+          therapy is managed and delivered.
         </p>
         <p>
-          Explore our extensive collection of expertly written articles and
-          guides covering a wide range of health topics. From understanding
-          common medical conditions to tips for maintaining a healthy lifestyle,
-          our content is designed to educate, inspire, and support you in making
-          informed choices for your health.
+          At SpeechCare Hub, we understand the importance of personalized care,
+          which is why our platform empowers patients to engage with therapists
+          who best fit their unique needs. Through seamless scheduling, direct 
+          communication, and our interactive chatbot, we ensure that every patient
+          receives consistent and comprehensive support. Whether you're a therapist 
+          looking to streamline your practice or a patient seeking dedicated guidance,
+          SpeechCare Hub is here to make the journey towards better communication and
+          well-being a rewarding experience.
         </p>
         <p>
-          Discover practical health tips and lifestyle advice to optimize your
-          physical and mental well-being. We believe that small changes can lead
-          to significant improvements in your quality of life, and we're here to
-          guide you on your path to a healthier and happier you.
+          Let us take care of the details so that you can focus on what matters most—your
+          progress and peace of mind.
         </p>
       </div>
       <div class="about__image">
-        <img src="{{ url_for('static', filename='images/about.jpeg') }}" alt="about" />
+        <img src="{{ url_for('static', filename='images/about.jpg') }}" alt="about" />
       </div>
     </section>
 
     <section class="section__container why__container" id="blog">
       <div class="why__image">
-        <img src="{{ url_for('static', filename='images/choose-us.jpeg') }}" alt="why choose us" />
+        <img src="{{ url_for('static', filename='images/choose-us.jpg') }}" alt="why choose us" />
       </div>
       <div class="why__content">
         <h2 class="section__header">Why Choose Us</h2>
@@ -135,20 +143,20 @@
               staffed by team of professionals
             </p>
           </div>
-          <span><i class="ri-truck-line"></i></span>
+          <span><i class="ri-team-line"></i></span>
           <div>
-            <h4>Free Ambulance Car</h4>
+            <h4>Expert Care Team</h4>
             <p>
-              A compassionate initiative to prioritize your health and
-              well-being without any financial burden.
+              Experienced therapists and AI-driven insights 
+              for personalized, effective treatment.
             </p>
           </div>
-          <span><i class="ri-hospital-line"></i></span>
+          <span><i class="ri-group-fill"></i></span>
           <div>
-            <h4>Medical and Surgical</h4>
+            <h4>Family Involvement</h4>
             <p>
-              Our Medical and Surgical services offer advanced healthcare
-              solutions to address medical needs.
+              We include family members in the therapy journey,
+              providing guidance for supportive home practices and better results.
             </p>
           </div>
         </div>
@@ -172,7 +180,7 @@
       <div class="doctors__grid">
         <div class="doctors__card">
           <div class="doctors__card__image">
-            <img src="{{ url_for('static', filename='images/doctor-1.jpeg') }}" alt="doctor" />
+            <img src="{{ url_for('static', filename='images/doctor-1.jpg') }}" alt="doctor" />
             <div class="doctors__socials">
               <span><i class="ri-instagram-line"></i></span>
               <span><i class="ri-facebook-fill"></i></span>
@@ -181,11 +189,11 @@
             </div>
           </div>
           <h4>Dr. Emily Smith</h4>
-          <p>Cardiologist</p>
+          <p>Pediatric Speech Therapist</p>
         </div>
         <div class="doctors__card">
           <div class="doctors__card__image">
-            <img src="{{ url_for('static', filename='images/doctor-2.jpeg') }}" alt="doctor" />
+            <img src="{{ url_for('static', filename='images/doctor-2.jpg') }}" alt="doctor" />
             <div class="doctors__socials">
               <span><i class="ri-instagram-line"></i></span>
               <span><i class="ri-facebook-fill"></i></span>
@@ -194,11 +202,11 @@
             </div>
           </div>
           <h4>Dr. James Anderson</h4>
-          <p>Neurosurgeon</p>
+          <p>Voice Therapist</p>
         </div>
         <div class="doctors__card">
           <div class="doctors__card__image">
-            <img src="{{ url_for('static', filename='images/doctor-3.jpeg') }}" alt="doctor" />
+            <img src="{{ url_for('static', filename='images/doctor-3.jpg') }}" alt="doctor" />
             <div class="doctors__socials">
               <span><i class="ri-instagram-line"></i></span>
               <span><i class="ri-facebook-fill"></i></span>
@@ -207,7 +215,7 @@
             </div>
           </div>
           <h4>Dr. Michael Lee</h4>
-          <p>Dermatologist</p>
+          <p>Aphasia Specialist </p>
         </div>
       </div>
     </section>
@@ -215,7 +223,8 @@
     <footer class="footer">
       <div class="section__container footer__container">
         <div class="footer__col">
-          <h3>Health<span>Care</span></h3>
+          <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="SpeechCare Hub">
+          <h3>SpeechCare<span>Hub</span></h3>
           <p>
             We are honored to be a part of your healthcare journey and committed
             to delivering compassionate, personalized, and top-notch care every
@@ -236,19 +245,19 @@
         </div>
         <div class="footer__col">
           <h4>Services</h4>
-          <p>Search Terms</p>
-          <p>Advance Search</p>
-          <p>Privacy Policy</p>
-          <p>Suppliers</p>
-          <p>Our Stores</p>
+          <p>Personalized Therapy</p>
+          <p>Progress Tracking</p>
+          <p>AI-Assisted Sessions</p>
+          <p>Patient Communication</p>
+          <p>Family Engagement</p>
         </div>
         <div class="footer__col">
           <h4>Contact Us</h4>
           <p>
-            <i class="ri-map-pin-2-fill"></i> 123, London Bridge Street, London
+            <i class="ri-map-pin-2-fill"></i> 123, Maidan Garhi New Delhi, India
           </p>
           <p><i class="ri-mail-fill"></i> support@care.com</p>
-          <p><i class="ri-phone-fill"></i> (+012) 3456 789</p>
+          <p><i class="ri-phone-fill"></i> (+91) 98765 43210</p>
         </div>
       </div>
       <div class="footer__bar">

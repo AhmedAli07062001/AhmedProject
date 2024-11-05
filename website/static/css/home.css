@@ -14,7 +14,7 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 .section__container {
@@ -63,10 +63,10 @@ body {
 header {
   background-image: linear-gradient(
       to right,
-      rgba(18, 172, 142, 0.9),
+      rgba(23, 143, 119, 0.9),
       rgba(18, 172, 142, 0.7)
     ),
-    url("assets/header.jpg");
+    url("/static/images/header.jpg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -83,6 +83,13 @@ header {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--white);
+  display: flex;
+  gap: 1rem;
+}
+
+.nav__logo img{
+  height: 2rem;
+  width: 2rem;
 }
 
 .nav__logo span {
@@ -410,6 +417,13 @@ header {
   display: grid;
   grid-template-columns: 400px repeat(3, 1fr);
   gap: 2rem;
+}
+
+
+.footer__col img{
+  height: 2rem;
+  width: 2rem;
+  float: left;
 }
 
 .footer__col h3 {
