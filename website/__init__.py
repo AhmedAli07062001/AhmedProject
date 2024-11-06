@@ -1,6 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template  # Ensure this is included
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 
 # Initialize the SQLAlchemy object
 db = SQLAlchemy()
@@ -10,23 +9,23 @@ def create_app():
     app.config['SECRET_KEY'] = 'dont try to cheat my secret key its impossible'
 
     # Uncomment this when setting up the database
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ahmed#2909@localhost/SpeechCareHub'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ahmed#2909@localhost/SpeechCareHub'
     
-    # # Initialize the database
-    # db.init_app(app)
+    # Initialize the database
+    db.init_app(app)
     
-    # # Register blueprints (uncomment when using auth blueprint)
-    # from .auth import auth
-    # app.register_blueprint(auth, url_prefix='/auth')
+    # Register blueprints (uncomment when using auth blueprint)
+    from .auth import auth
+    app.register_blueprint(auth, url_prefix='/auth')
     
-    # # Create tables if they don’t exist (uncomment for database setup)
-    # with app.app_context():
-    #     db.create_all()
+    # Create tables if they don’t exist (uncomment for database setup)
+    with app.app_context():
+        db.create_all()
 
     # Route for the home page
     @app.route('/')
     def home():
-        print("Home page accessed") ;
+        print("Home page accessed")
         return render_template('index.html')  # Render the home page
     
     @app.route('/login')
@@ -47,6 +46,6 @@ def create_app():
     
     @app.route('/chatbot')
     def chatbot():
-        return render_template('chatbot.html') #render to the chatbot page
+        return render_template('chatbot.html')  # Render the chatbot page
 
     return app
