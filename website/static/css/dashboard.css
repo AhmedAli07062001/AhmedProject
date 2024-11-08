@@ -13399,6 +13399,11 @@ input[type="file"]::file-selector-button {
     display: none;
   }
 }
+
+.page-wrapper.toggled .sidebar {
+  display: block;
+}
+
 .sidebar-menu {
   list-style-type: none;
   margin: 0;

@@ -12,22 +12,22 @@
     <!-- Custom CSS Link -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/login.css') }}"
+      href="{{ url_for('static', filename='css/auth.css') }}"
     />
   </head>
   <body>
     <!-- Flash Message Container -->
-{% with messages = get_flashed_messages(with_categories=True) %}
-{% if messages %}
-    <div id="flash-message-container">
-        {% for category, message in messages %}
-            <div class="flash-message {{ category }}">
-                {{ message }}
-                <button class="close-flash" onclick="this.parentElement.style.display='none';">&times;</button>
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div id="flash-message-container">
+            {% for category, message in messages %}
+                <div class="flash-message alert alert-{{ category }}">
+                    {{ message }}
+                    <button type="button" class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endwith %}
 
     <section class="wrapper">
@@ -83,7 +83,7 @@
             </div>
             <div class="mt-2 text-end">
               <a
-                href="{{ url_for('otp_verification') }}"
+                href="{{ url_for('forgot_password') }}"
                 class="fw-bold text-decoration-none"
                 style="color: rgba(18, 172, 142, 0.9)"
                 >Forget Password?</a
