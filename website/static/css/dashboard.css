@@ -13286,7 +13286,7 @@ input[type="file"]::file-selector-button {
 }
 @media (min-width: 1200px) {
   .page-wrapper.pinned:not(.sidebar-hovered) .sidebar-wrapper {
-    width: 74px;
+    width: 64px;
   }
   .page-wrapper.pinned:not(.sidebar-hovered)
     .sidebar-wrapper
@@ -13817,7 +13817,7 @@ input[type="file"]::file-selector-button {
   filter: grayscale(10%);
 }
 .sidebarMenuScroll {
-  height: calc(100vh - 250px);
+  height: calc(100vh - 50px);
   overflow: hidden;
 }
 .sidebarMenuScroll .os-scrollbar-vertical {

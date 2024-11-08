@@ -13,13 +13,12 @@ def create_app():
     # Uncomment this when setting up the database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ahmed#2909@localhost/SpeechCareHub'
     
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Example for Gmail
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'  
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
     app.config['MAIL_USERNAME'] = 'ahmedali29090067@gmail.com'
     app.config['MAIL_PASSWORD'] = 'ymyc upwv zdqs ixtr'
-    app.config['MAIL_DEFAULT_SENDER'] = 'ahmed.ali.404716@gmail.com'
     
     mail.init_app(app)
 
