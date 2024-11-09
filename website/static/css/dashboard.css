@@ -12584,10 +12584,10 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  border: 5px solid rgba(0, 55, 255, 0.4);
+  border: 5px solid rgba(18, 172, 142, 0.4);
   border-right: none;
   border-top: none;
-  box-shadow: inset 0px 0px 10px rgba(0, 130, 217, 0.3254901961);
+  box-shadow: inset 0px 0px 10px rgba(18, 172, 142, 0.3254901961);
 }
 @-webkit-keyframes spin {
   from {
