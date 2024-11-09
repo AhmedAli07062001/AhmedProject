@@ -19,6 +19,8 @@ def create_app():
     app.config['MAIL_USE_SSL'] = False
     app.config['MAIL_USERNAME'] = 'ahmedali29090067@gmail.com'
     app.config['MAIL_PASSWORD'] = 'ymyc upwv zdqs ixtr'
+    app.config['MAIL_DEFAULT_SENDER'] = 'ahmed.ali.404716@gmail.com'
+
     
     mail.init_app(app)
 
@@ -62,5 +64,9 @@ def create_app():
     @app.route('/chatbot')
     def chatbot():
         return render_template('chatbot.html')  # Render the chatbot page
+    
+    @app.route('/contact')
+    def contact():
+        return render_template('contact.html')  # Render the contact page
 
     return app

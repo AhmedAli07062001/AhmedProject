@@ -7,6 +7,7 @@ import random
 from datetime import datetime, timedelta, timezone
 from flask_mail import Message
 from . import mail
+import socket
 
 auth = Blueprint('auth', __name__)
 
@@ -134,9 +135,17 @@ def send_otp():
     otp = random.randint(100000, 999999)
     session['otp'] = otp
     session['otp_expiry'] = datetime.now(timezone.utc) + timedelta(minutes=5)
-    
-    send_otp_email(email, otp)  # Send OTP to the user's email
-    flash(f"An OTP has been sent to {email}. Please verify.", "info")  # Flash message
+
+    try:
+        send_otp_email(email, otp)  # Send OTP to the user's email
+        flash(f"An OTP has been sent to {email}. Please verify.", "info")  # Flash message
+    except socket.gaierror:
+        flash("Failed to send OTP: Internet connection issue. Please try again.", "error")
+        return redirect(url_for('auth.forgot_password'))
+    except Exception as e:
+        flash(f"Failed to send OTP due to technical issue.", "error")
+        return redirect(url_for('auth.forgot_password'))
+
     return redirect(url_for('auth.otp_verification'))
 
 def send_otp_email(to_email, otp):
