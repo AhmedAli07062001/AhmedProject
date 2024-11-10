@@ -4,12 +4,20 @@ from .models import User  # Import your User model
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone,date
 from flask_mail import Message
 from . import mail
 import socket
 
 auth = Blueprint('auth', __name__)
+
+@auth.route('/User/<int:id>')
+def patient_profile(id):
+    user_profile = User.query.get(id)
+    if not user_profile:
+        flash("User not found.", "error")
+        return redirect(url_for('auth.login'))
+    return render_template('patient_dashboard.html', user_profile=user_profile)
 
 # Route for login
 @auth.route('/login', methods=['GET', 'POST'])
@@ -25,7 +33,7 @@ def login():
         if user and user.check_password(password):
             session['email'] = user.email
             flash('Login Successful', 'success')
-            return redirect(url_for('auth.dashboard'))
+            return redirect(url_for('auth.patient_dashboard'))
         else:
             flash('Email or Password is Incorrect', 'error')
             return redirect(url_for('auth.login'))
@@ -46,6 +54,13 @@ def sign_up():
         gender = request.form.get('gender')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        day = int(request.form['day'])
+        month = request.form['month']
+        year = int(request.form['year'])
+
+        birthdate = date(year, ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].index(month) + 1, day)
+
+        password_hash = generate_password_hash(password)
 
         if password != confirm_password:
             flash("Passwords do not match, please try again.", "error")
@@ -61,16 +76,9 @@ def sign_up():
             return redirect(url_for('auth.sign_up'))
         
         # Create a new user instance
-        new_user = User(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            phone_number=phone_number,
-            address=address,
-            role=role,
-            gender=gender,
-            password_hash=generate_password_hash(password)  # Make sure to import and use this function
-        )
+        new_user = User(first_name=first_name, last_name=last_name, email=email,
+                        phone_number=phone_number, password_hash=password_hash, gender=gender,
+                        birthdate=birthdate)
 
         # Add and commit the new user to the database
         try:
@@ -84,13 +92,13 @@ def sign_up():
 
     return render_template('signup.html')
 
-# Route for dashboard
-@auth.route('/dashboard')
-def dashboard():
+# Route for patinet dashboard
+@auth.route('/patient_dashboard')
+def patient_dashboard():
     if 'email' in session:
         user = User.query.filter_by(email=session['email']).first()
         if user:
-            return render_template('dashboard.html', user=user)
+            return render_template('patient_dashboard.html', user_profile=user)
         else:
             flash("User not found", "error")
             return redirect(url_for('auth.login'))  # Redirect if user is not found
@@ -221,3 +229,5 @@ def new_password():
             return redirect(url_for('auth.login'))
 
     return render_template('new password.html')  # Render the 'new password' page
+
+

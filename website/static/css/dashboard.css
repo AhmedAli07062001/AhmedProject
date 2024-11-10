@@ -12545,7 +12545,7 @@ body {
   background: #f6f9fb;
 }
 *::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0rem;
   height: 0.5rem;
 }
 *::-webkit-scrollbar-track {
@@ -13286,7 +13286,7 @@ input[type="file"]::file-selector-button {
 }
 @media (min-width: 1200px) {
   .page-wrapper.pinned:not(.sidebar-hovered) .sidebar-wrapper {
-    width: 64px;
+    width: 74px;
   }
   .page-wrapper.pinned:not(.sidebar-hovered)
     .sidebar-wrapper

@@ -12,6 +12,8 @@ def create_app():
 
     # Uncomment this when setting up the database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ahmed#2909@localhost/SpeechCareHub'
+
+
     
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'  
     app.config['MAIL_PORT'] = 587
@@ -19,7 +21,7 @@ def create_app():
     app.config['MAIL_USE_SSL'] = False
     app.config['MAIL_USERNAME'] = 'ahmedali29090067@gmail.com'
     app.config['MAIL_PASSWORD'] = 'ymyc upwv zdqs ixtr'
-    app.config['MAIL_DEFAULT_SENDER'] = 'ahmed.ali.404716@gmail.com'
+    app.config['MAIL_DEFAULT_SENDER'] = 'ahmed.ali.408716@gmail.com'
 
     
     mail.init_app(app)
@@ -68,5 +70,49 @@ def create_app():
     @app.route('/contact')
     def contact():
         return render_template('contact.html')  # Render the contact page
+    
+    @app.route('/hospital')
+    def hospital():
+        return render_template('hospital.html')  # Render the contact page
+    
+    @app.route('/doctor_dashboard')
+    def doctor_dashboard():
+        return render_template('doctor_dashboard.html')
+
+    @app.route('/doctor_list')
+    def doctor_list():
+        return render_template('doctor_list.html')
+    
+    @app.route('/doctor_card')
+    def doctor_card():
+        return render_template('doctor_card.html')
+    
+    @app.route('/doctor_profile')
+    def doctor_profile():
+        return render_template('doctor_profile.html')
+    
+    @app.route('/add_doctor')
+    def add_doctor():
+        return render_template('add_doctor.html')
+
+    @app.route('/edit_doctor')
+    def edit_doctor():
+        return render_template('edit_doctor.html')
+    
+    @app.route('/edit_patient')
+    def edit_patient():
+        return render_template('edit_patient.html')
+    
+    @app.route('/add_patient')
+    def add_patient():
+        return render_template('add_patient.html')
+    
+    @app.route('/patient_list')
+    def patient_list():
+        return render_template('patient_list.html')
+    
+    @app.route('/patient_dashboard')
+    def patient_dashboard():
+        return render_template('patient_dashboard.html')
 
     return app
