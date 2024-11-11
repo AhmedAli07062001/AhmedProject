@@ -115,4 +115,32 @@ def create_app():
     def patient_dashboard():
         return render_template('patient_dashboard.html')
 
+    @app.route('/appoint_list')
+    def appoint_list():
+        return render_template('appoint_list.html')
+    
+    @app.route('/appoint')
+    def appoint():
+        return render_template('appoint.html')
+    
+    @app.route('/book_appoint')
+    def book_appoint():
+        return render_template('book_appoint.html')
+    
+    @app.route('/dept_list')
+    def dept_list():
+        return render_template('dept_list.html')
+    
+    @app.route('/edit_appoint')
+    def edit_appoint():
+        return render_template('edit_appoint.html')
+    
+    @app.route('/edit_dept')
+    def edit_dept():
+        return render_template('edit_dept.html')
+    
+    @app.route('/add_dept')
+    def add_dept():
+        return render_template('add_dept.html')
+
     return app
