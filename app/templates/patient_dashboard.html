@@ -57,7 +57,7 @@
             <div class="dropdown-menu dropdown-menu-end shadow-lg">
               <div class="px-3 py-2">
                 <span class="small">Admin</span>
-                <h6 class="m-0">James Bruton</h6>
+                <h6 class="m-0">Ahmed Ali</h6>
               </div>
               <div class="mx-3 my-2 d-grid">
                 <a href="login.html" class="btn btn-danger">Logout</a>
@@ -82,7 +82,7 @@
           <div class="sidebar-profile">
             <img src="{{url_for('static',filename='images/doctor-1.jpg')}}" class="img-shadow img-3x me-3 rounded-5" alt="Hospital Admin Templates">
             <div class="m-0">
-              <h5 class="mb-1 profile-name text-nowrap text-truncate">Nick Gonzalez</h5>
+              <h5 class="mb-1 profile-name text-nowrap text-truncate">Naziya Khatun</h5>
               <p class="m-0 small profile-name text-nowrap text-truncate">Dept Admin</p>
             </div>
           </div>
@@ -261,7 +261,7 @@
                             <i class="ri-account-circle-line fs-3"></i>
                           </div>
                           <div>
-                            <h4 class="mb-1">Carole</h4>
+                            <h4 class="mb-1">{{user_profile.full_name}}</h4>
                             <p class="m-0">Patient Name</p>
                           </div>
                         </div>
@@ -270,7 +270,7 @@
                             <i class="ri-women-line fs-3"></i>
                           </div>
                           <div>
-                            <h4 class="mb-1">Female</h4>
+                            <h4 class="mb-1">{{user_profile.gender}}</h4>
                             <p class="m-0">Gender</p>
                           </div>
                         </div>
@@ -279,7 +279,7 @@
                             <i class="ri-arrow-right-up-line fs-3"></i>
                           </div>
                           <div>
-                            <h4 class="mb-1">68</h4>
+                            <h4 class="mb-1">{{user_profile.age}}</h4>
                             <p class="m-0">Patient Age</p>
                           </div>
                         </div>
