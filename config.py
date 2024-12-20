@@ -14,3 +14,6 @@ class Config:
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', 'default_password')
     MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', MAIL_USERNAME)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+    

@@ -4,12 +4,12 @@ general_bp = Blueprint('general', __name__)
 
 @general_bp.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('general/index.html')
 
 @general_bp.route('/chatbot')
 def chatbot():
-    return render_template('chatbot.html')
+    return render_template('general/chatbot.html')
 
 @general_bp.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('general/contact.html')

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
+from config import Config
 
 # Initialize the extensions
 db = SQLAlchemy()
@@ -8,17 +9,9 @@ mail = Mail()
 
 def create_app():
     app = Flask(__name__)
-    
-    # Configuration
-    app.config['SECRET_KEY'] = 'dont try to cheat my secret key its impossible'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ahmed#2909@localhost/SpeechCareHub'
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USE_SSL'] = False
-    app.config['MAIL_USERNAME'] = 'ahmedali29090067@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'ymyc upwv zdqs ixtr'
-    app.config['MAIL_DEFAULT_SENDER'] = 'ahmed.ali.408716@gmail.com'
+
+    # Load configuration from Config class
+    app.config.from_object(Config)
 
     # Initialize extensions
     db.init_app(app)

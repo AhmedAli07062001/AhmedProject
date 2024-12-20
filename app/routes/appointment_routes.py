@@ -4,16 +4,16 @@ appointment_bp = Blueprint('appointment', __name__)
 
 @appointment_bp.route('/list')
 def appoint_list():
-    return render_template('appoint_list.html')
+    return render_template('appointment/appoint_list.html')
 
 @appointment_bp.route('/')
 def appoint():
-    return render_template('appoint.html')
+    return render_template('appointment/appoint.html')
 
 @appointment_bp.route('/book')
 def book_appoint():
-    return render_template('book_appoint.html')
+    return render_template('appointment/book_appoint.html')
 
 @appointment_bp.route('/edit')
 def edit_appoint():
-    return render_template('edit_appoint.html')
+    return render_template('appointment/edit_appoint.html')
