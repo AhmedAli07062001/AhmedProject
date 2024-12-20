@@ -23,12 +23,14 @@ def create_app():
     from app.routes.therapist_routes import therapist_bp
     from app.routes.appointment_routes import appointment_bp
     from app.routes.general_routes import general_bp
+    from app.errors.handlers import errors_bp
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(patient_bp, url_prefix='/patient')
     app.register_blueprint(therapist_bp, url_prefix='/therapist')
     app.register_blueprint(appointment_bp, url_prefix='/appointment')
     app.register_blueprint(general_bp)
+    app.register_blueprint(errors_bp)
 
     # Initialize database
     with app.app_context():
