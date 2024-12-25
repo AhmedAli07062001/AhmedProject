@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user
 from werkzeug.security import generate_password_hash
 from datetime import datetime, timedelta, timezone
 from app.models import User
-from app.utils import send_otp_email  # Helper function moved to utils.py
+from app.utils import send_otp_email 
 from app import db
 import random
 
@@ -21,7 +21,7 @@ def login():
             login_user(user)
             session['email'] = user.email
             flash('Login Successful', 'success')
-            return redirect(url_for('auth.dashboard'))  # Update with appropriate dashboard
+            return redirect(url_for('patient.patient_dashboard'))
         else:
             flash('Invalid email or password.', 'error')
             return redirect(url_for('auth.login'))
@@ -40,7 +40,7 @@ def sign_up():
         gender = request.form.get('gender')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        birthdate = request.form.get('birthdate')  # Ensure this field exists in your form
+        birthdate = request.form.get('birthdate')
 
         if password != confirm_password:
             flash("Passwords do not match.", 'error')
@@ -75,7 +75,7 @@ def sign_up():
     return render_template('auth/signup.html')
 
 #route forget password
-@auth_bp.route('/forgot-password', methods=['GET', 'POST'])
+@auth_bp.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -99,29 +99,45 @@ def forgot_password():
             print(f"Error: {e}")
             return redirect(url_for('auth.forgot_password'))
 
-    return render_template('auth/forgot_password.html')
+    return render_template('auth/forget password.html')
 
-
-# otp verification
-@auth_bp.route('/otp-verification', methods=['GET', 'POST'])
+@auth_bp.route('/otp_verification', methods=['GET', 'POST'])
 def otp_verification():
     if request.method == 'POST':
-        entered_otp = ''.join(request.form.get(f'otp_digit_{i}') for i in range(1, 7))
-        if session.get('otp') and session.get('otp_expiry') >= datetime.now(timezone.utc):
-            if str(session['otp']) == entered_otp:
-                session.pop('otp', None)
-                session.pop('otp_expiry', None)
-                return redirect(url_for('auth.new_password'))
-            else:
-                flash("Invalid OTP. Try again.", 'error')
-        else:
-            flash("OTP expired. Request a new one.", 'warning')
+        otp = ''.join([request.form.get(f'otp_digit_{i}') for i in range(1, 7)])  # Collect all digits
+        if 'otp' not in session or session['otp'] != int(otp):
+            flash("Invalid OTP.", 'error')
+            return redirect(url_for('auth.otp_verification'))
+
+        if datetime.now(timezone.utc) > session['otp_expiry']:
+            flash("OTP expired.", 'error')
             return redirect(url_for('auth.forgot_password'))
 
-    return render_template('auth/otp_verification.html')
+        flash("OTP verified. You can now reset your password.", 'success')
+        return redirect(url_for('auth.new_password'))
 
-# new password
-@auth_bp.route('/new-password', methods=['GET', 'POST'])
+    return render_template('auth/OTP Verification.html')
+
+@auth_bp.route('/resend_otp', methods=['GET'])
+def resend_otp():
+    if 'email' not in session:
+        flash("Session expired. Please try again.", 'error')
+        return redirect(url_for('auth.forgot_password'))
+
+    try:
+        otp = random.randint(100000, 999999)
+        session['otp'] = otp
+        session['otp_expiry'] = datetime.now(timezone.utc) + timedelta(minutes=5)
+
+        send_otp_email(session['email'], otp)
+        flash("OTP resent to your email.", 'success')
+    except Exception as e:
+        flash("Failed to resend OTP. Please try again.", 'error')
+        print(f"Error: {e}")
+
+    return redirect(url_for('auth.otp_verification'))
+
+@auth_bp.route('/new_password', methods=['GET', 'POST'])
 def new_password():
     if request.method == 'POST':
         password = request.form.get('password')
@@ -137,7 +153,7 @@ def new_password():
             return redirect(url_for('auth.forgot_password'))
 
         try:
-            user.password_hash = generate_password_hash(password)
+            user.password = generate_password_hash(password)
             db.session.commit()
             flash("Password reset successfully. Please log in.", 'success')
             return redirect(url_for('auth.login'))
@@ -147,4 +163,4 @@ def new_password():
             print(f"Error: {e}")
             return redirect(url_for('auth.new_password'))
 
-    return render_template('auth/new_password.html')
+    return render_template('auth/new password.html')

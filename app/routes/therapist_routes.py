@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-therapist_bp = Blueprint('doctor', __name__)
+therapist_bp = Blueprint('therapist', __name__)
 
 @therapist_bp.route('/dashboard')
 def doctor_dashboard():
