@@ -33,13 +33,13 @@ def patient_dashboard():
         return redirect(url_for('auth.login'))
 
 
-@patient_bp.route('/edit/<int:id>', methods=['GET', 'POST'])
-def edit_patient(id):
-    patient = User.query.get(id)
-    if request.method == 'POST':
-        # Logic to update patient info
-        pass
-    return render_template('patient/edit_patient.html', patient=patient)
+@patient_bp.route('/edit_patient')
+def edit_patient():
+    # patient = User.query.get(id)
+    # if request.method == 'POST':
+    #     # Logic to update patient info
+    #     pass
+    return render_template('patient/edit_patient.html')
 
 
 @patient_bp.route('/add')

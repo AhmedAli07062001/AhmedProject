@@ -50,6 +50,7 @@ body {
     border: none;
     font-size: 30px;
     color: #333;
+    cursor: pointer;
 }
 
 .flash-message.alert-success {

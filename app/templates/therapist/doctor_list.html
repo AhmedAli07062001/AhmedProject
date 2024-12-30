@@ -31,10 +31,10 @@
 
         <!-- App brand starts -->
         <div class="app-brand ms-3">
-          <a href="{{url_for('home')}}" class="d-lg-block d-none">
+          <a href="{{url_for('general.home')}}" class="d-lg-block d-none">
             <img src="{{url_for('static',filename='images/logo1.png')}}" class="logo" alt="Medicare Admin Template">
           </a>
-          <!-- <a href="{{url_for('home')}}" class="d-lg-none d-md-block">
+          <!-- <a href="{{url_for('general.home')}}" class="d-lg-none d-md-block">
             <img src="{{url_for('static',filename='images/logo1.png')}}" class="logo" alt="Medicare Admin Template">
           </a> -->
         </div>
@@ -93,7 +93,7 @@
           <div class="sidebarMenuScroll os-host os-theme-dark os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition"><div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div></div><div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;"><div class="os-resize-observer"></div></div><div class="os-content-glue" style="margin: 0px;"></div><div class="os-padding"><div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;"><div class="os-content" style="padding: 0px; height: 100%; width: 100%;">
             <ul class="sidebar-menu">
               <li>
-                <a href="{{url_for('hospital')}}">
+                <a href="{{url_for('general.home')}}">
                   <i class="ri-home-6-line"></i>
                   <span class="menu-text">Hospital Dashboard</span>
                 </a>
@@ -105,22 +105,22 @@
                 </a>
                 <ul class="treeview-menu">
                   <li>
-                    <a href="{{url_for('doctor_dashboard')}}">Doctors Dashboard</a>
+                    <a href="{{url_for('therapist.doctor_dashboard')}}">Doctors Dashboard</a>
                   </li>
                   <li>
-                    <a href="{{url_for('doctor_list')}}">Doctors List</a>
+                    <a href="{{url_for('therapist.doctor_list')}}">Doctors List</a>
                   </li>
                   <li>
-                    <a href="{{url_for('doctor_card')}}">Doctors Cards</a>
+                    <a href="{{url_for('therapist.doctor_card')}}">Doctors Cards</a>
                   </li>
                   <li>
-                    <a href="{{url_for('doctor_profile')}}">Doctors Profile</a>
+                    <a href="{{url_for('therapist.doctor_profile')}}">Doctors Profile</a>
                   </li>
                   <li>
-                    <a href="{{url_for('add_doctor')}}">Add Doctor</a>
+                    <a href="{{url_for('therapist.add_doctor')}}">Add Doctor</a>
                   </li>
                   <li>
-                    <a href="{{url_for('edit_doctor')}}">Edit Doctor</a>
+                    <a href="{{url_for('therapist.edit_doctor')}}">Edit Doctor</a>
                   </li>
                 </ul>
               </li>
@@ -131,16 +131,16 @@
                 </a>
                 <ul class="treeview-menu">
                   <li>
-                    <a href="{{url_for('patient_dashboard')}}" class="active-sub">Patients Dashboard</a>
+                    <a href="{{url_for('patient.patient_dashboard')}}" class="active-sub">Patients Dashboard</a>
                   </li>
                   <li>
-                    <a href="{{url_for('patient_list')}}">Patients List</a>
+                    <a href="{{url_for('patient.patient_list')}}">Patients List</a>
                   </li>
                   <li>
-                    <a href="{{url_for('add_patient')}}">Add Patient</a>
+                    <a href="{{url_for('patient.add_patient')}}">Add Patient</a>
                   </li>
                   <li>
-                    <a href="{{url_for('edit_patient')}}">Edit Patient Details</a>
+                    <a href="{{url_for('patient.edit_patient')}}">Edit Patient Details</a>
                   </li>
                 </ul>
               </li>
@@ -151,16 +151,16 @@
                 </a>
                 <ul class="treeview-menu">
                   <li>
-                    <a href="{{url_for('appoint')}}">Appointments</a>
+                    <a href="{{url_for('appointment.appoint')}}">Appointments</a>
                   </li>
                   <li>
-                    <a href="{{url_for('appoint_list')}}">Appointments List</a>
+                    <a href="{{url_for('appointment.appoint_list')}}">Appointments List</a>
                   </li>
                   <li>
-                    <a href="{{url_for('book_appoint')}}">Book Appointment</a>
+                    <a href="{{url_for('appointment.book_appoint')}}">Book Appointment</a>
                   </li>
                   <li>
-                    <a href="{{url_for('edit_appoint')}}">Edit Appointment</a>
+                    <a href="{{url_for('appointment.edit_appoint')}}">Edit Appointment</a>
                   </li>
                 </ul>
               </li>
@@ -171,13 +171,13 @@
                 </a>
                 <ul class="treeview-menu">
                   <li>
-                    <a href="{{url_for('dept_list')}}">Departments List</a>
+                    <a href="#">Departments List</a>
                   </li>
                   <li>
-                    <a href="{{url_for('add_dept')}}">Add Department</a>
+                    <a href="#">Add Department</a>
                   </li>
                   <li>
-                    <a href="{{url_for('edit_dept')}}">Edit Department</a>
+                    <a href="#">Edit Department</a>
                   </li>
                 </ul>
               </li>

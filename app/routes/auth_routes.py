@@ -101,6 +101,7 @@ def forgot_password():
 
     return render_template('auth/forget password.html')
 
+#route otp verification
 @auth_bp.route('/otp_verification', methods=['GET', 'POST'])
 def otp_verification():
     if request.method == 'POST':
@@ -137,6 +138,7 @@ def resend_otp():
 
     return redirect(url_for('auth.otp_verification'))
 
+#route new password
 @auth_bp.route('/new_password', methods=['GET', 'POST'])
 def new_password():
     if request.method == 'POST':

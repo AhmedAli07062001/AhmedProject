@@ -1,69 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Contact{% endblock %}</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/contact.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/auth.css')}}">
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/contact.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/auth.css')}}"
+    />
     <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body>
-  {% with messages = get_flashed_messages(with_categories=True) %}
-  {% if messages %}
-      <div id="flash-message-container">
-          {% for category, message in messages %}
-              <div class="flash-message alert alert-{{ category }}">
-                  {{ message }}
-                  <button type="button" class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %}
+    <div id="flash-message-container">
+      {% for category, message in messages %}
+      <div class="flash-message alert alert-{{ category }}">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          onclick="this.parentElement.style.display='none';"
+        >
+          &times;
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+    <!-- covers body -->
+    <div class="cover">
+      <!-- Main Contact Section -->
+      <div class="container">
+        <div class="content">
+          <div class="left-side">
+            <div class="address details">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="topic">Address</div>
+              <div class="text-one">Saket, New Delhi</div>
+              <div class="text-two">Surya Vihar Part 2</div>
+            </div>
+            <div class="phone details">
+              <i class="fas fa-phone-alt"></i>
+              <div class="topic">Phone</div>
+              <div class="text-one">+0098 9893 5647</div>
+              <div class="text-two">+0096 3434 5678</div>
+            </div>
+            <div class="email details">
+              <i class="fas fa-envelope"></i>
+              <div class="topic">Email</div>
+              <div class="text-one">speechcare@gmail.com</div>
+              <div class="text-two">info.speechcare@gmail.com</div>
+            </div>
+          </div>
+          <div class="right-side">
+            <div class="topic-text">Send us a message</div>
+            <p>
+              If you have any query regarding our services, feel free to ask
+              anything about SpeechCare Hub.
+            </p>
+            <form action="{{ url_for('general.contact') }}" method="POST">
+              <div class="input-box">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
               </div>
-          {% endfor %}
-      </div>
-  {% endif %}
-{% endwith %}
-  <div class="container">
-    <div class="content">
-      <div class="left-side">
-        <div class="address details">
-          <i class="fas fa-map-marker-alt"></i>
-          <div class="topic">Address</div>
-          <div class="text-one">Saket, New Delhi</div>
-          <div class="text-two">Surya Vihar part 2</div>
-        </div>
-        <div class="phone details">
-          <i class="fas fa-phone-alt"></i>
-          <div class="topic">Phone</div>
-          <div class="text-one">+0098 9893 5647</div>
-          <div class="text-two">+0096 3434 5678</div>
-        </div>
-        <div class="email details">
-          <i class="fas fa-envelope"></i>
-          <div class="topic">Email</div>
-          <div class="text-one">speechcare@gmail.com</div>
-          <div class="text-two">info.speechcare@gmail.com</div>
+              <div class="input-box">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="input-box message-box">
+                <textarea
+                  name="message"
+                  placeholder="Enter your message here"
+                  required
+                ></textarea>
+              </div>
+              <div class="button">
+                <input type="submit" value="Send Now" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div class="right-side">
-        <div class="topic-text">Send us a message</div>
-        <p>If you have any quey regarding our services. You can freely to ask anything on any topic regarding speechcare Hub </p>
-        <form action="{{ url_for('general.contact') }}" method="POST">
-          <div class="input-box">
-              <input type="text" name="name" placeholder="Enter your name" required>
-          </div>
-          <div class="input-box">
-              <input type="email" name="email" placeholder="Enter your email" required>
-          </div>
-          <div class="input-box message-box">
-              <textarea name="message" placeholder="Enter your message here" required></textarea>
-          </div>
-          <div class="button">
-              <input type="submit" value="Send Now">
-          </div>
-      </form>
     </div>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
