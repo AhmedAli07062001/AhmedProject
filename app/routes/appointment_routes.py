@@ -8,7 +8,7 @@ def appoint_list():
 
 @appointment_bp.route('/')
 def appoint():
-    return render_template('appointment/appoint.html')
+    return render_template('appointment/appoint.html',active_page='therapy_session')
 
 @appointment_bp.route('/book')
 def book_appoint():

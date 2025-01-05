@@ -1,128 +1,174 @@
-<link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% extends "patient/patient_base.html" %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chatbot</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-      crossorigin="anonymous"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/chatbot.css')}}"
-    />
-  </head>
+{% block title %}AI Therapist{% endblock %}
 
-  <body>
-    <div class="container-fluid h-100">
-      <div class="row justify-content-center h-100">
-        <div class="col-md-8 col-xl-6 chat">
-          <div class="card">
-            <div class="card-header msg_head">
-              <div class="d-flex bd-highlight">
-                <div class="img_cont">
-                  <img
-                    src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png"
-                    class="rounded-circle user_img"
-                  />
-                  <span class="online_icon"></span>
-                </div>
-                <div class="user_info">
-                  <span>ChatBot</span>
-                  <p>Ask me anything!</p>
-                </div>
-              </div>
+{% block content %}
+<div class="app-hero-header d-flex align-items-center">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+      <a href="{{ url_for('general.home') }}">Home</a>
+    </li>
+    <li class="breadcrumb-item text-primary" aria-current="page">AI Therapist</li>
+  </ol>
+</div>
+
+<div class="app-body">
+  <div class="card chatbot-container shadow-lg rounded-4">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">AI Therapist Chatbot</h4>
+      <span class="badge bg-success">Online</span>
+    </div>
+    <div class="card-body p-4 position-relative">
+      <!-- Chatbox -->
+      <div id="chatbox" class="chatbox bg-light rounded-4 p-3 shadow-sm" style="height: 450px; overflow-y: auto;">
+        <div id="chatContent" class="chat-content">
+          <!-- Bot initial message -->
+          <div class="chat-message bot d-flex mb-4 fade-in">
+            <div class="avatar me-3">
+              <img src="{{url_for('static',filename='images/doctor-1.jpg')}}" alt="Bot Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
             </div>
-            <div id="messageFormeight" class="card-body msg_card_body"></div>
-            <div class="card-footer">
-              <form id="messageArea" class="input-group">
-                <input
-                  type="text"
-                  id="text"
-                  name="msg"
-                  placeholder="Type your message..."
-                  autocomplete="off"
-                  class="form-control type_msg"
-                  required
-                />
-                <div class="input-group-append">
-                  <button
-                    type="submit"
-                    id="send"
-                    class="input-group-text send_btn"
-                  >
-                    <i class="fas fa-location-arrow"></i>
-                  </button>
-                </div>
-              </form>
+            <div class="message bg-primary text-black p-3 rounded-3 shadow-sm">
+              Hello! How can I assist you today?
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Chat Input -->
+      <div class="chat-input mt-4 d-flex align-items-center position-sticky bottom-0 bg-light py-3 px-3">
+        <input type="text" id="userInput" class="form-control rounded-pill shadow-sm px-4" placeholder="Type your message..." autofocus>
+        <button id="sendBtn" class="btn btn-primary rounded-pill ms-3 px-4">
+          <i class="bi bi-send"></i>
+        </button>
+        <button id="uploadBtn" class="btn btn-secondary rounded-pill ms-3 px-4">
+          <i class="bi bi-paperclip"></i>
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="chat-options mt-5 text-center">
+        <h5 class="text-primary mb-3">Quick Actions</h5>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <button id="scheduleSession" class="btn btn-outline-primary rounded-pill px-4 py-2 action-btn">
+            <i class="bi bi-calendar2-plus me-2"></i>Schedule a Session
+          </button>
+          <button id="viewTherapyPlan" class="btn btn-outline-primary rounded-pill px-4 py-2 action-btn">
+            <i class="bi bi-journal-text me-2"></i>View Therapy Plan
+          </button>
+          <button id="contactTherapist" class="btn btn-outline-primary rounded-pill px-4 py-2 action-btn">
+            <i class="bi bi-person-lines-fill me-2"></i>Contact Therapist
+          </button>
+          <button id="viewProgress" class="btn btn-outline-primary rounded-pill px-4 py-2 action-btn">
+            <i class="bi bi-graph-up me-2"></i>My Progress
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+{% endblock %}
 
-    <script>
-      function scrollToBottom() {
-        var messageBody = document.getElementById("messageFormeight");
-        messageBody.scrollTop = messageBody.scrollHeight;
+{% block extra_js %}
+<script>
+  const sendBtn = document.getElementById('sendBtn');
+  const userInput = document.getElementById('userInput');
+  const chatContent = document.getElementById('chatContent');
+  const uploadBtn = document.getElementById('uploadBtn');
+
+  function appendMessage(sender, message, isFile = false) {
+    const isUser = sender === 'user';
+    const avatar = isUser ? "/static/images/doctor-2.jpg" : "/static/images/doctor-1.jpg";
+    const messageHtml = `
+      <div class="chat-message ${sender} d-flex ${isUser ? 'justify-content-end' : 'mb-4'} fade-in">
+        ${!isUser ? `<div class="avatar me-3">
+          <img src="${avatar}" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+        </div>` : ''}
+        <div class="message ${isUser ? 'bg-light border text-black' : 'bg-primary text-black'} p-3 rounded-3 shadow-sm">
+          ${isFile ? `<a href="${message}" download>Download File</a>` : message}
+        </div>
+        ${isUser ? `<div class="avatar ms-3">
+          <img src="${avatar}" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+        </div>` : ''}
+      </div>`;
+    chatContent.innerHTML += messageHtml;
+    chatContent.scrollTop = chatContent.scrollHeight;
+  }
+
+  sendBtn.addEventListener('click', function () {
+    const message = userInput.value.trim();
+    if (message) {
+      appendMessage('user', message);
+      userInput.value = '';
+
+      setTimeout(() => {
+        appendMessage('bot', "I'm here to help! What do you need assistance with?");
+      }, 1000);
+    }
+  });
+
+  userInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      sendBtn.click();
+    }
+  });
+
+  uploadBtn.addEventListener('click', function () {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '*';
+    fileInput.click();
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const fileURL = URL.createObjectURL(file);
+        appendMessage('user', fileURL, true);
+
+        setTimeout(() => {
+          appendMessage('bot', "Thanks for sharing! I'll process this and get back to you shortly.");
+        }, 1000);
       }
+    };
+  });
 
-      $(document).ready(function () {
-        $("#messageArea").on("submit", function (event) {
-          const date = new Date();
-          const hour = date.getHours();
-          const minute = date.getMinutes();
-          const str_time = hour + ":" + minute;
-          var rawText = $("#text").val();
+  document.getElementById('scheduleSession').addEventListener('click', function () {
+    appendMessage('bot', "Scheduling a session for you... Please wait!");
+  });
 
-          var userHtml =
-            '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' +
-            rawText +
-            '<span class="msg_time_send">' +
-            str_time +
-            '</span></div><div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"></div></div>';
+  document.getElementById('viewTherapyPlan').addEventListener('click', function () {
+    appendMessage('bot', "Fetching your therapy plan... Please wait!");
+  });
 
-          $("#text").val("");
-          $("#messageFormeight").append(userHtml);
+  document.getElementById('contactTherapist').addEventListener('click', function () {
+    appendMessage('bot', "Connecting you to your therapist... Please wait!");
+  });
 
-          scrollToBottom();
+  document.getElementById('viewProgress').addEventListener('click', function () {
+    appendMessage('bot', "Loading your progress... Please wait!");
+  });
 
-          $.ajax({
-            data: {
-              msg: rawText,
-            },
-            type: "POST",
-            url: "/get",
-          }).done(function (data) {
-            var botHtml =
-              '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' +
-              data +
-              '<span class="msg_time">' +
-              str_time +
-              "</span></div></div>";
-            $("#messageFormeight").append($.parseHTML(botHtml));
-            scrollToBottom();
-          });
-          event.preventDefault();
-        });
-      });
-    </script>
-  </body>
-</html>
+  const chatbox = document.getElementById('chatbox');
+  chatbox.style.backgroundImage = 'linear-gradient(to bottom right, #f8f9fa, #e9ecef)';
+  chatbox.style.border = '1px solid #dee2e6';
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .action-btn:hover {
+      background-color: #0d6efd !important;
+      color: white !important;
+      transform: scale(1.05);
+      transition: all 0.3s ease;
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+{% endblock %}

@@ -10,7 +10,7 @@ def home():
 
 @general_bp.route('/chatbot')
 def chatbot():
-    return render_template('general/chatbot.html')
+    return render_template('general/chatbot.html',active_page='chatbot')
 
 @general_bp.route('/contact', methods=['GET', 'POST'])
 def contact():
