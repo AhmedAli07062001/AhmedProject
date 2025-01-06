@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Sign-Up{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo-modified.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up.css') }}" />
 </head>
 <body>
@@ -19,75 +20,66 @@
         </div>
     {% endif %}
     {% endwith %}
-    
-    <div class="container">
-        <div class="title">Registration</div>
-        <div class="content">
-            <div class="gotologin">
-                Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a>
+
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="logo">
+                <img src="{{url_for('static',filename='images/logo1.png')}}" alt="Logo" />
+                <h3>Create Account</h3>
             </div>
             <form action="{{ url_for('auth.sign_up') }}" method="POST">
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">First Name</span>
-                        <input type="text" name="first_name" placeholder="Enter your First Name" required />
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name" id="first_name" placeholder="Enter your First Name" required />
                     </div>
                     <div class="input-box">
-                        <span class="details">Last Name</span>
-                        <input type="text" name="last_name" placeholder="Enter your Last Name" required />
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Enter your Last Name" required />
                     </div>
                     <div class="input-box">
-                        <span class="details">Email</span>
-                        <input type="email" name="email" placeholder="Enter your email" required />
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required />
                     </div>
                     <div class="input-box">
-                        <span class="details">Phone Number</span>
-                        <input type="tel" name="phone_number" maxlength="10" placeholder="Enter your phone number" required />
+                        <label for="phone_number">Phone Number</label>
+                        <input type="tel" name="phone_number" id="phone_number" maxlength="10" placeholder="Enter your phone number" required />
                     </div>
                     <div class="input-box">
-                        <span class="details">Password</span>
-                        <input type="password" name="password" placeholder="Enter your password" required />
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter your password" required />
                     </div>
                     <div class="input-box">
-                        <span class="details">Confirm Password</span>
-                        <input type="password" name="confirm_password" placeholder="Confirm your password" required />
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required />
                     </div>
                 </div>
 
                 <!-- Gender Section -->
                 <div class="gender-details">
-                    <span class="gender-title">Gender</span>
+                    <label class="gender-title">Gender</label>
                     <div class="category">
-                        <input type="radio" name="gender" id="dot-1" value="Male" required />
-                        <label for="dot-1">
-                            <span class="dot"></span>
-                            <span class="gender">Male</span>
-                        </label>
-                        <input type="radio" name="gender" id="dot-2" value="Female" required />
-                        <label for="dot-2">
-                            <span class="dot"></span>
-                            <span class="gender">Female</span>
-                        </label>
-                        <input type="radio" name="gender" id="dot-3" value="Prefer not to say" required />
-                        <label for="dot-3">
-                            <span class="dot"></span>
-                            <span class="gender">Prefer not to say</span>
-                        </label>
+                        <input type="radio" name="gender" id="male" value="Male" required />
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="female" value="Female" required />
+                        <label for="female">Female</label>
+                        <input type="radio" name="gender" id="prefer_not_to_say" value="Prefer not to say" required />
+                        <label for="prefer_not_to_say">Prefer not to say</label>
                     </div>
                 </div>
 
                 <!-- Date of Birth Section -->
                 <div class="dob-details">
-                    <span class="dob-title">Date of Birth</span>
-                    <div class="category">
-                        <span class="dob">Day</span>
-                        <select name="day" id="day-select">
+                    <label for="dob">Date of Birth</label>
+                    <div class="dob-category">
+                        <select name="day" id="day" required>
+                            <option value="" disabled selected>Day</option>
                             {% for i in range(1, 32) %}
                                 <option value="{{ i }}">{{ i }}</option>
                             {% endfor %}
                         </select>
-                        <span class="dob">Month</span>
-                        <select name="month" id="month-select">
+                        <select name="month" id="month" required>
+                            <option value="" disabled selected>Month</option>
                             <option value="Jan">Jan</option>
                             <option value="Feb">Feb</option>
                             <option value="Mar">Mar</option>
@@ -101,8 +93,8 @@
                             <option value="Nov">Nov</option>
                             <option value="Dec">Dec</option>
                         </select>
-                        <span class="dob">Year</span>
-                        <select name="year" id="year-select">
+                        <select name="year" id="year" required>
+                            <option value="" disabled selected>Year</option>
                             {% for i in range(2025, 1949, -1) %}
                                 <option value="{{ i }}">{{ i }}</option>
                             {% endfor %}
@@ -110,12 +102,12 @@
                     </div>
                 </div>
 
-                <div class="button">
-                    <input type="submit" value="Register" />
+                <div class="action-buttons">
+                    <input type="submit" class="submit-btn" value="Register" />
+                    <p class="gotologin">Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a></p>
                 </div>
             </form>
         </div>
     </div>
-    
 </body>
 </html>
