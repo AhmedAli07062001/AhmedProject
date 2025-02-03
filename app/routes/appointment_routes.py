@@ -4,7 +4,7 @@ appointment_bp = Blueprint('appointment', __name__)
 
 @appointment_bp.route('/list')
 def appoint_list():
-    return render_template('appointment/appoint_list.html')
+    return render_template('appointment/appoint_list.html', active_page='therapy_plan')
 
 @appointment_bp.route('/')
 def appoint():

@@ -10,8 +10,8 @@
 /* Colors and fonts */
 :root {
     --primary-font-family: 'Poppins', sans-serif;
-    --primary-color: #1a7f56;
-    --secondary-color: #137a3f;
+    --primary-color: rgba(23, 143, 119, 0.9);
+    --secondary-color: rgba(23, 143, 119, 0.7);
     --alert-success: #28a745;
     --alert-error: #dc3545;
     --light-gray: #f5f5f5;

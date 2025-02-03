@@ -295,6 +295,8 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
       $(this).parent().addClass('active current-page');
     });
   });
+
+  
   
   
   

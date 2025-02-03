@@ -22,9 +22,9 @@ def patient_profile(id):
 @patient_bp.route('/patient_dashboard')
 def patient_dashboard():
     if 'email' in session:
-        user = User.query.filter_by(email=session['email']).first()
-        if user:
-            return render_template('patient/patient_dashboard.html', user_profile=user,active_page='patient_dashboard')
+        patient = User.query.filter_by(email=session['email']).first()
+        if patient:
+            return render_template('patient/patient_dashboard.html', user_profile=patient,active_page='patient_dashboard')
         else:
             flash("User not found", "error")
             return redirect(url_for('auth.login'))  # Redirect if user is not found
