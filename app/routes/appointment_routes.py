@@ -12,8 +12,8 @@ def appoint():
 
 @appointment_bp.route('/book')
 def book_appoint():
-    return render_template('appointment/book_appoint.html')
+    return render_template('appointment/book_appoint.html',active_page='book_appointment')
 
-@appointment_bp.route('/edit')
+@appointment_bp.route('/edit_appoint')
 def edit_appoint():
-    return render_template('appointment/edit_appoint.html')
+    return render_template('appointment/edit_appoint.html',active_page='edit_appointment')

@@ -154,12 +154,12 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         label: 'Therapy Progress',
         data: [75, 25], // Replace 75 with dynamic progress percentage
         backgroundColor: [
-          'rgba(14, 187, 19,1)', // Completed - Green
-          'rgba(255, 90, 57,1)'  // Remaining - Red
+          'rgba(23, 143, 119, 0.5)', // Completed - Green
+          'rgba(255, 90, 57,0.5)'  // Remaining - Red
         ],
         borderColor: [
-          'rgba(14, 187, 19,1)',
-          'rgba(255, 90, 57,1)'
+          'rgba(23, 143, 119, 0.5)',
+          'rgba(255, 90, 57,0.5)'
         ],
         borderWidth: 1
       }]
@@ -218,7 +218,7 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         }
 
         if (today.getFullYear() === year && today.getMonth() === month && today.getDate() === i) {
-          $dayDiv.css('border', '2px solid rgba(0, 255, 7, 0.9)');
+          $dayDiv.css('border', '2px solid rgba(23, 143, 119, 0.9)');
         }
 
         $calendar.append($dayDiv);

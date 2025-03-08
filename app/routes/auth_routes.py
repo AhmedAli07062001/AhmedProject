@@ -21,7 +21,7 @@ def login():
             login_user(user)
             session['email'] = user.email
             flash('Login Successful', 'success')
-            return redirect(url_for('therapist.therapist_dashboard'))
+            return redirect(url_for('admin.admin_dashboard'))
         else:
             flash('Invalid email or password.', 'error')
             return redirect(url_for('auth.login'))

@@ -26,6 +26,7 @@ def create_app():
     # Register blueprints
     from app.routes.auth_routes import auth_bp
     from app.routes.patient_routes import patient_bp
+    from app.routes.admin_routes import admin_bp
     from app.routes.therapist_routes import therapist_bp
     from app.routes.appointment_routes import appointment_bp
     from app.routes.general_routes import general_bp
@@ -35,6 +36,7 @@ def create_app():
     app.register_blueprint(patient_bp, url_prefix='/patient')
     app.register_blueprint(therapist_bp, url_prefix='/therapist')
     app.register_blueprint(appointment_bp, url_prefix='/appointment')
+    app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(general_bp)
     app.register_blueprint(errors_bp)
 

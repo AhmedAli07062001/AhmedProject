@@ -1,0 +1,529 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<!-- App hero header starts -->
+<div class="app-hero-header d-flex align-items-center">
+
+  <!-- Breadcrumb starts -->
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+      <a href="index.html">Home</a>
+    </li>
+    <li class="breadcrumb-item text-primary" aria-current="page">
+      Add Doctor Profile
+    </li>
+  </ol>
+  <!-- Breadcrumb ends -->
+</div>
+<!-- App Hero header ends -->
+
+<!-- App body starts -->
+<div class="app-body">
+
+    <!-- Row starts -->
+    <div class="row gx-3">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body">
+
+            <!-- Custom tabs starts -->
+            <div class="custom-tabs-container">
+
+              <!-- Nav tabs starts -->
+              <ul class="nav nav-tabs" id="customTab2" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="tab-oneA" data-bs-toggle="tab" href="#oneA" role="tab" aria-controls="oneA" aria-selected="true"><i class="ri-briefcase-4-line"></i> Personal
+                    Details</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="tab-twoA" data-bs-toggle="tab" href="#twoA" role="tab" aria-controls="twoA" aria-selected="false" tabindex="-1"><i class="ri-account-pin-circle-line"></i>
+                    Profile and Bio</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="tab-threeA" data-bs-toggle="tab" href="#threeA" role="tab" aria-controls="threeA" aria-selected="false" tabindex="-1"><i class="ri-calendar-check-line"></i>
+                    Availability</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="tab-fourA" data-bs-toggle="tab" href="#fourA" role="tab" aria-controls="fourA" aria-selected="false" tabindex="-1"><i class="ri-lock-password-line"></i> Account
+                    Details</a>
+                </li>
+              </ul>
+              <!-- Nav tabs ends -->
+
+              <!-- Tab content starts -->
+              <div class="tab-content h-350">
+                <div class="tab-pane fade show active" id="oneA" role="tabpanel" aria-labelledby="tab-oneA">
+
+                  <!-- Row starts -->
+                  <div class="row gx-3">
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a1">First Name <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-account-circle-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a1" placeholder="Enter First Name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a2">Last Name <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-account-circle-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a2" placeholder="Enter Last Name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a3">Age <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-flower-line"></i>
+                          </span>
+                          <select class="form-select" id="a3">
+                            <option value="0">Select Age</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="selectGender1">Gender<span class="text-danger">*</span></label>
+                        <div class="m-0">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="selectGenderOptions" id="selectGender1" value="male">
+                            <label class="form-check-label" for="selectGender1">Male</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="selectGenderOptions" id="selectGender2" value="female">
+                            <label class="form-check-label" for="selectGender2">Female</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a4">Create ID <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-secure-payment-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a4" placeholder="Create Unique ID">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a5">Email ID <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-mail-open-line"></i>
+                          </span>
+                          <input type="email" class="form-control" id="a5" placeholder="Enter Email ID">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a6">Mobile Number <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-phone-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a6" placeholder="Enter Mobile Number">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a7">Marital Status</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-vip-crown-2-line"></i>
+                          </span>
+                          <select class="form-select" id="a7">
+                            <option value="0">Select</option>
+                            <option value="1">Married</option>
+                            <option value="2">Un Married</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a8">Qualification</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-copper-diamond-line"></i>
+                          </span>
+                          <select class="form-select" id="a8">
+                            <option value="0">Select</option>
+                            <option value="1">MBBS, MD</option>
+                            <option value="2">MBBS, MS</option>
+                            <option value="3">MBBS</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a9">Designation</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-nft-line"></i>
+                          </span>
+                          <select class="form-select" id="a9">
+                            <option value="0">Select</option>
+                            <option value="1">Doctor</option>
+                            <option value="2">Head of the Dept</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a10">Blood Group<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-drop-line"></i>
+                          </span>
+                          <select class="form-select" id="a10">
+                            <option value="0">Select</option>
+                            <option value="1">A+</option>
+                            <option value="2">A-</option>
+                            <option value="3">B+</option>
+                            <option value="4">B-</option>
+                            <option value="5">O+</option>
+                            <option value="6">O-</option>
+                            <option value="7">AB+</option>
+                            <option value="8">AB-</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a11">Address</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-projector-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a11" placeholder="Enter Address">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a12">Country</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-flag-line"></i>
+                          </span>
+                          <select class="form-select" id="a12">
+                            <option value="0">Select</option>
+                            <option value="1">USA</option>
+                            <option value="2">Canada</option>
+                            <option value="3">Brazil</option>
+                            <option value="4">India</option>
+                            <option value="5">China</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a13">State</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-instance-line"></i>
+                          </span>
+                          <select class="form-select" id="a13">
+                            <option value="0">Select</option>
+                            <option value="1">Alabama</option>
+                            <option value="2">Alaska</option>
+                            <option value="3">Arizona</option>
+                            <option value="4">California</option>
+                            <option value="5">Florida</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a14">City</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-scan-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a14" placeholder="Enter City">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a15">Postal Code</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-qr-scan-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a15" placeholder="Enter Postal Code">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Row ends -->
+
+                </div>
+                <div class="tab-pane fade" id="twoA" role="tabpanel" aria-labelledby="tab-twoA">
+
+                  <!-- Row starts -->
+                  <div class="row gx-3">
+                    <div class="col-sm-2">
+                      <div id="dropzone" class="mb-3">
+                        <label class="form-label">Upload Profile</label>
+                        <form action="/upload" class="dropzone dz-clickable" id="demo-upload">
+                          <div class="dz-message">
+                            <button type="button" class="dz-button">
+                              Click here to upload your photo.</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <label class="form-label">Write Bio</label>
+                      <div class="ql-toolbar ql-snow"><span class="ql-formats"><span class="ql-header ql-picker"><span class="ql-picker-label" tabindex="0" role="button" aria-expanded="false" aria-controls="ql-picker-options-0"><svg viewBox="0 0 18 18"> <polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon> <polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon> </svg></span><span class="ql-picker-options" aria-hidden="true" tabindex="-1" id="ql-picker-options-0"><span tabindex="0" role="button" class="ql-picker-item" data-value="1"></span><span tabindex="0" role="button" class="ql-picker-item" data-value="2"></span><span tabindex="0" role="button" class="ql-picker-item" data-value="3"></span><span tabindex="0" role="button" class="ql-picker-item"></span></span></span><select class="ql-header" style="display: none;"><option value="1"></option><option value="2"></option><option value="3"></option><option selected="selected"></option></select></span><span class="ql-formats"><button type="button" class="ql-bold"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button><button type="button" class="ql-italic"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="13" y1="4" y2="4"></line> <line class="ql-stroke" x1="5" x2="11" y1="14" y2="14"></line> <line class="ql-stroke" x1="8" x2="10" y1="14" y2="4"></line> </svg></button><button type="button" class="ql-underline"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect> </svg></button><button type="button" class="ql-link"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="11" y1="7" y2="11"></line> <path class="ql-even ql-stroke" d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path> <path class="ql-even ql-stroke" d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path> </svg></button></span><span class="ql-formats"><button type="button" class="ql-list" value="ordered"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line> <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line> <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line> <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line> <path class="ql-fill" d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path> <path class="ql-stroke ql-thin" d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path> <path class="ql-stroke ql-thin" d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path> </svg></button><button type="button" class="ql-list" value="bullet"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line> <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line> <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line> <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line> <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line> <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line> </svg></button></span><span class="ql-formats"><button type="button" class="ql-clean"><svg class="" viewBox="0 0 18 18"> <line class="ql-stroke" x1="5" x2="13" y1="3" y2="3"></line> <line class="ql-stroke" x1="6" x2="9.35" y1="12" y2="3"></line> <line class="ql-stroke" x1="11" x2="15" y1="11" y2="15"></line> <line class="ql-stroke" x1="15" x2="11" y1="11" y2="15"></line> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="7" x="2" y="14"></rect> </svg></button></span></div><div id="fullEditor" class="ql-container ql-snow"><div class="ql-editor" data-gramm="false" contenteditable="true"><h1>Hello,</h1><p><br></p><p>My name is <strong>Dr. David Kemrin</strong>. Write your bio here.</p></div><div class="ql-clipboard" contenteditable="true" tabindex="-1"></div><div class="ql-tooltip ql-hidden"><a class="ql-preview" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div></div>
+                    </div>
+                  </div>
+                  <!-- Row ends -->
+
+                </div>
+                <div class="tab-pane fade" id="threeA" role="tabpanel" aria-labelledby="tab-threeA">
+
+                  <!-- Row starts -->
+                  <div class="row gx-3">
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d1">Sun</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d1">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d1X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d2">Mon</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d2">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d2X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d3">Tue</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d3">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d3X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d4">Wed</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d4">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d4X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d5">Thu</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d5">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d5X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d6">Fri</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d6">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d6X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="d7">Sat</label>
+                        <div class="input-group">
+                          <select class="form-select" id="d7">
+                            <option value="0">From</option>
+                            <option value="1">7AM</option>
+                            <option value="2">8AM</option>
+                            <option value="3">9AM</option>
+                          </select>
+                          <select class="form-select" id="d7X">
+                            <option value="0">To</option>
+                            <option value="1">3PM</option>
+                            <option value="2">4PM</option>
+                            <option value="3">5PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Row ends -->
+
+                </div>
+                <div class="tab-pane fade" id="fourA" role="tabpanel" aria-labelledby="tab-fourA">
+
+                  <!-- Row starts -->
+                  <div class="row gx-3">
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="u1">User Name</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-account-pin-circle-line"></i>
+                          </span>
+                          <input type="text" id="u1" placeholder="Enter username" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="u2">Password</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-lock-password-line"></i>
+                          </span>
+                          <input type="password" id="u2" class="form-control" placeholder="Password must be 8-20 characters long.">
+                          <button class="btn btn-outline-secondary" type="button">
+                            <i class="ri-eye-line"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="u3">Confirm Password</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-lock-password-line"></i>
+                          </span>
+                          <input type="password" id="u3" placeholder="Confirm new password" class="form-control">
+                          <button class="btn btn-outline-secondary" type="button">
+                            <i class="ri-eye-off-line"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Row ends -->
+
+                </div>
+              </div>
+              <!-- Tab content ends -->
+
+            </div>
+            <!-- Custom tabs ends -->
+
+            <!-- Card acrions starts -->
+            <div class="d-flex gap-2 justify-content-end mt-4">
+              <a href="doctors-list.html" class="btn btn-outline-secondary">
+                Cancel
+              </a>
+              <a href="doctors-list.html" class="btn btn-primary">
+                Create Doctor Profile
+              </a>
+            </div>
+            <!-- Card acrions ends -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row ends -->
+
+  </div>
+<!-- App body ends -->
+{% endblock %}
