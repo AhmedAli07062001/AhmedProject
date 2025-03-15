@@ -1,73 +1,7 @@
 {% extends "admin/admin_base.html" %}
 
-{% block title %}Sessions{% endblock %}
-
+{% block title %}Edit Appointment{% endblock %}
 {% block content %}
-{% block extra_css %}
-<style>
-  .btn-sm i {
-    font-size: 1rem;
-    margin: 3px;
-  }
-
-  .badge {
-    font-size: 0.85rem;
-    padding: 5px 10px;
-  }
-
-  .table-hover tbody tr:hover {
-    background-color: #f8f9fa;
-  }
-
-  .rounded-circle {
-    object-fit: cover;
-  }
-
-  .modal-content {
-    border-radius: 20px;
-    padding: 20px;
-  }
-
-  .modal-header {
-    font-size: 1.25rem;
-    padding-bottom: 15px;
-  }
-
-  .form-select, .form-control {
-    padding: 10px;
-    font-size: 1rem;
-  }
-
-  .btn-success {
-    font-size: 1.1rem;
-    padding: 10px;
-  }
-
-  .modal-body {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  .select-option {
-    margin-bottom: 10px;
-  }
-
-  .form-label {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  .date-selection {
-    display: flex;
-    gap: 20px; 
-    justify-content: space-between;
-  }
-
-  .select-option {
-    flex: 1; 
-  }
-</style>
-{% endblock %}
 
 <!-- App hero header starts -->
 <div class="app-hero-header d-flex align-items-center">
@@ -78,7 +12,7 @@
       <a href="index.html">Home</a>
     </li>
     <li class="breadcrumb-item text-primary" aria-current="page">
-      Therapy Sessions
+      Update Appointment
     </li>
   </ol>
   <!-- Breadcrumb ends -->
@@ -99,36 +33,41 @@
           <div class="row gx-3">
             <div class="col-xxl-3 col-lg-4 col-sm-6">
               <div class="mb-3">
+                <label class="form-label" for="a5">Appointment Id</label>
+                <input type="text" class="form-control" id="a5" placeholder="Enter Appointment Id">
+              </div>
+            </div>
+            <div class="col-xxl-3 col-lg-4 col-sm-6">
+              <div class="mb-3">
                 <label class="form-label" for="a1">Patient Name</label>
-                <input type="text" class="form-control" id="a1" value="Jason Compton">
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a2">Patient Email</label>
-                <input type="email" class="form-control" id="a2" value="test@test.com">
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a3">Gender</label>
-                <select class="form-select" id="a3">
-                  <option value="0">Male</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                </select>
+                <input type="text" class="form-control" id="a1" placeholder="Enter Patient Name">
               </div>
             </div>
             <div class="col-xxl-3 col-lg-4 col-sm-6">
               <div class="mb-3">
                 <label class="form-label" for="a4">Age</label>
-                <input type="number" class="form-control" id="a4" value="68">
+                <input type="number" class="form-control" id="a4" placeholder="Enter Patient Age">
               </div>
             </div>
             <div class="col-xxl-3 col-lg-4 col-sm-6">
               <div class="mb-3">
-                <label class="form-label" for="a5">Patient Phone</label>
-                <input type="text" class="form-control" id="a5" value="09876543421">
+                <label class="form-label" for="selectGender1">Gender<span class="text-danger">*</span></label>
+                <div class="m-0">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="selectGenderOptions" id="selectGender1" value="male">
+                    <label class="form-check-label" for="selectGender1">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="selectGenderOptions" id="selectGender2" value="female">
+                    <label class="form-check-label" for="selectGender2">Female</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label" for="a2">Patient Email</label>
+                <input type="email" class="form-control" id="a2" placeholder="Enter Patient Email">
               </div>
             </div>
             <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -147,12 +86,12 @@
               <div class="mb-3">
                 <label class="form-label" for="a8">Speacilist Doctor</label>
                 <select class="form-select" id="a8">
-                  <option value="0">Surgeon</option>
-                  <option value="1">Gynecologist</option>
-                  <option value="2">Psychiatrists</option>
-                  <option value="3">Surgeon</option>
-                  <option value="4">Urologist</option>
-                  <option value="5">Paediatrician</option>
+                  <option value="0">Select</option>
+                  <option value="1">Speech-Language Pathologist (SLP)</option>
+                  <option value="2">Clinical Linguist</option>
+                  <option value="3">Communication Disorders Specialist</option>
+                  <option value="4">Voice and Swallowing Specialist</option>
+                  <option value="5">Neurogenic Communication Expert</option>
                 </select>
               </div>
             </div>

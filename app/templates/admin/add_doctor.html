@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 
-{% block title %}Edit Therapist Profile{% endblock %}
+{% block title %}Add Therapist{% endblock %}
 
 {% block content %}
 <!-- App hero header starts -->
@@ -13,7 +13,7 @@
       <a href="index.html">Home</a>
     </li>
     <li class="breadcrumb-item text-primary" aria-current="page">
-      Edit Therapist Profile
+      Add Therapist Profile
     </li>
   </ol>
   <!-- Breadcrumb ends -->
@@ -46,22 +46,11 @@
               <!-- Nav tabs ends -->
 
               <!-- Tab content starts -->
-              <div class="tab-content h-320">
+              <div class="tab-content h-350">
                 <div class="tab-pane fade show active" id="oneA" role="tabpanel" aria-labelledby="tab-oneA">
 
                   <!-- Row starts -->
                   <div class="row gx-3">
-                    <div class="col-xxl-3 col-lg-4 col-sm-6">
-                      <div class="mb-3">
-                        <label class="form-label" for="a4">Therapist Unique ID <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <i class="ri-secure-payment-line"></i>
-                          </span>
-                          <input type="text" class="form-control" id="a4" placeholder="Enter Therapist Unique ID">
-                        </div>
-                      </div>
-                    </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                       <div class="mb-3">
                         <label class="form-label" for="a1">First Name <span class="text-danger">*</span></label>
@@ -85,6 +74,17 @@
                       </div>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="a2">Age <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                <i class="ri-user-line"></i>
+                                </span>
+                                <input type="text" class="form-control" id="a2" placeholder="Enter Your Age">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
                       <div class="mb-3">
                         <label class="form-label" for="selectGender1">Gender<span class="text-danger">*</span></label>
                         <div class="m-0">
@@ -101,13 +101,24 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                       <div class="mb-3">
-                          <label class="form-label" for="a2">Age <span class="text-danger">*</span></label>
-                          <div class="input-group">
-                              <span class="input-group-text">
-                              <i class="ri-user-line"></i>
-                              </span>
-                              <input type="text" class="form-control" id="a2" placeholder="Enter Your Age">
-                          </div>
+                        <label class="form-label" for="a5">Email ID <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-mail-open-line"></i>
+                          </span>
+                          <input type="email" class="form-control" id="a5" placeholder="Enter Email ID">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="a6">Mobile Number <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-phone-line"></i>
+                          </span>
+                          <input type="text" class="form-control" id="a6" placeholder="Enter Mobile Number">
+                        </div>
                       </div>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -165,6 +176,34 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                        <div class="mb-3">
+                          <label class="form-label" for="u2">Password</label>
+                          <div class="input-group">
+                            <span class="input-group-text">
+                              <i class="ri-lock-password-line"></i>
+                            </span>
+                            <input type="password" id="u2" class="form-control" placeholder="Password must be 8-20 characters long.">
+                            <button class="btn btn-outline-secondary" type="button">
+                              <i class="ri-eye-line"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xxl-3 col-lg-4 col-sm-6">
+                        <div class="mb-3">
+                          <label class="form-label" for="u3">Confirm Password</label>
+                          <div class="input-group">
+                            <span class="input-group-text">
+                              <i class="ri-lock-password-line"></i>
+                            </span>
+                            <input type="password" id="u3" placeholder="Confirm new password" class="form-control">
+                            <button class="btn btn-outline-secondary" type="button">
+                              <i class="ri-eye-off-line"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                   <!-- Row ends -->
 
@@ -321,7 +360,7 @@
                 Cancel
               </a>
               <a href="doctors-list.html" class="btn btn-primary">
-                Update Therapist Profile
+                Create Therapist Profile
               </a>
             </div>
             <!-- Card acrions ends -->

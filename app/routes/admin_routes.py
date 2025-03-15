@@ -20,7 +20,7 @@ def admin_dashboard():
 
 @admin_bp.route('/add_doctor')
 def add_doctor():
-    return render_template('admin/add_user.html',active_page='add_doctor')
+    return render_template('admin/add_doctor.html',active_page='add_doctor')
 
 @admin_bp.route('/edit_user')
 def edit_user():
@@ -28,4 +28,4 @@ def edit_user():
 
 @admin_bp.route('/edit_doctor')
 def edit_doctor():
-    return render_template('admin/edit_user.html',active_page='edit_doctor')
+    return render_template('admin/edit_doctor.html',active_page='edit_doctor')

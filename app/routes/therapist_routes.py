@@ -19,7 +19,7 @@ def therapist_dashboard():
 
 @therapist_bp.route('/list')
 def therapist_list():
-    return render_template('therapist/therapist_list.html')
+    return render_template('therapist/therapist_list.html', active_page='therapist_list')
 
 @therapist_bp.route('/card')
 def therapist_card():

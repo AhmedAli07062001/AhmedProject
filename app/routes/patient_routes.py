@@ -48,7 +48,7 @@ def add_patient():
 
 @patient_bp.route('/list')
 def patient_list():
-    return render_template('patient/patient_list.html')
+    return render_template('patient/patient_list.html', active_page='patient_list')
 
 @patient_bp.route('/patient_profiles')
 def patient_profiles():

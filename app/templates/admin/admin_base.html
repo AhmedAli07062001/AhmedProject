@@ -35,10 +35,6 @@
       </div>
       <!-- Header actions -->
       <div class="header-actions">
-        <div class="search-container d-lg-block d-none mx-3">
-          <input type="text" class="form-control" placeholder="Search">
-          <i class="ri-search-line"></i>
-        </div>
         <div class="dropdown ms-2">
           <a id="userSettings" class="dropdown-toggle d-flex align-items-center" href="#!" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,21 +59,21 @@
       <!-- Sidebar -->
       <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-profile">
-          <img src="{{ url_for('static', filename='images/doctor-1.jpg') }}" class="img-shadow img-3x me-3 rounded-5"
+          <img src="{{ url_for('static', filename='images/doctor-3.jpg') }}" class="img-shadow img-3x me-3 rounded-5"
             alt="Hospital Admin Templates">
           <div>
-            <h5 class="profile-name">Naziya Khatun</h5>
+            <h5 class="profile-name">Ahmed Ali</h5>
             <p class="small profile-name">Dept Admin</p>
           </div>
         </div>
         <ul class="sidebar-menu">
           <li class="{% if active_page == 'admin_dashboard' %}active current-page{% endif %}"><a href="{{ url_for('admin.admin_dashboard') }}" class="sidebar-link"><i class="ri-dashboard-line"></i> Dashboard</a></li>
           <li class="{% if active_page == 'patient_list' %}active current-page{% endif %}"><a href="{{ url_for('patient.patient_list') }}" class="sidebar-link"><i class="ri-user-line"></i>Patinet List</a></li>
-          <li class="{% if active_page == 'therapist_list' %}active current-page{% endif %}"><a href="{{ url_for('therapist.therapist_list') }}" class="sidebar-link"><i class="ri-calendar-event-line"></i> Therapist List</a></li>
-          <li class="{% if active_page == 'edit_user' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_user') }}" class="sidebar-link"><i class="ri-chat-3-line"></i>Edit User</a></li>
-          <li class="{% if active_page == 'edit_appointment' %}active current-page{% endif %}"><a href="{{ url_for('appointment.edit_appoint') }}" class="sidebar-link"><i class="ri-chat-3-line"></i>Edit Appintment</a></li>
-          <li class="{% if active_page == 'add_doctor' %}active current-page{% endif %}"><a href="{{ url_for('admin.add_doctor') }}" class="sidebar-link"><i class="ri-chat-3-line"></i> Add Doctor</a></li>
-          <li class="{% if active_page == 'edit_doctor' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_doctor') }}" class="sidebar-link"><i class="ri-chat-3-line"></i> Edit Doctor</a></li>
+          <li class="{% if active_page == 'therapist_list' %}active current-page{% endif %}"><a href="{{ url_for('therapist.therapist_list') }}" class="sidebar-link"><i class="ri-file-list-line"></i> Therapist List</a></li>
+          <li class="{% if active_page == 'edit_user' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_user') }}" class="sidebar-link"><i class="ri-edit-line"></i>Edit Patient</a></li>
+          <li class="{% if active_page == 'edit_appointment' %}active current-page{% endif %}"><a href="{{ url_for('appointment.edit_appoint') }}" class="sidebar-link"><i class="ri-calendar-line"></i>Edit Appintment</a></li>
+          <li class="{% if active_page == 'add_doctor' %}active current-page{% endif %}"><a href="{{ url_for('admin.add_doctor') }}" class="sidebar-link"><i class="ri-hospital-line"></i> Add Therapist</a></li>
+          <li class="{% if active_page == 'edit_doctor' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_doctor') }}" class="sidebar-link"><i class="ri-edit-line"></i> Edit Therapist</a></li>
         </ul>
               
       </nav>
