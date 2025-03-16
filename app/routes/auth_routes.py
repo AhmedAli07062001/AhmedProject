@@ -6,8 +6,14 @@ from app.models import User
 from app.utils import send_otp_email 
 from app import db
 import random
+import re
+import logging
 
 auth_bp = Blueprint('auth', __name__)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Routes login 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -20,59 +26,92 @@ def login():
         if user and user.check_password(password):
             login_user(user)
             session['email'] = user.email
-            flash('Login Successful', 'success')
             return redirect(url_for('admin.admin_dashboard'))
         else:
-            flash('Invalid email or password.', 'error')
+            flash('Invalid email or password.', 'danger')
             return redirect(url_for('auth.login'))
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html',active_page='login')
 
 #route sign up
 @auth_bp.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
-        email = request.form.get('email')
-        phone_number = request.form.get('phone_number')
-        address = request.form.get('address')
+        first_name = request.form.get('first_name').strip()
+        last_name = request.form.get('last_name').strip()
+        age = request.form.get('age').strip()
         gender = request.form.get('gender')
+        email = request.form.get('email').strip()
+        phone_number = request.form.get('phone_number').strip()
+        state = request.form.get('state', '').strip()
+        city = request.form.get('city', '').strip()
+        role = request.form.get('role') # Admin, Therapist, Patient
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        birthdate = request.form.get('birthdate')
 
+        # Email already exists check
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash('❌ Email already exists. Please use a different email.', 'danger')
+            return redirect(url_for('auth.sign_up'))
+
+        # Password match check
         if password != confirm_password:
-            flash("Passwords do not match.", 'error')
+            flash('❌ Passwords do not match.', 'danger')
             return redirect(url_for('auth.sign_up'))
 
-        if User.query.filter_by(email=email).first():
-            flash("Email is already registered.", 'error')
+        # Basic validations
+        if not first_name or not last_name:
+            flash("First name and last name are required.", 'danger')
             return redirect(url_for('auth.sign_up'))
 
+        if not age.isdigit() or int(age) <= 0:
+            flash("Invalid age. Please enter a valid number.", 'danger')
+            return redirect(url_for('auth.sign_up'))
+
+        if gender not in ['male', 'female', 'other']:
+            flash("Please select a valid gender.", 'danger')
+            return redirect(url_for('auth.sign_up'))
+
+        if not email or not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            flash("Invalid email format.", 'danger')
+            return redirect(url_for('auth.sign_up'))
+
+        if not phone_number.isdigit() or len(phone_number) != 10:
+            flash("Invalid phone number. It should be 10 digits.", 'danger')
+            return redirect(url_for('auth.sign_up'))
+
+        if not password or len(password) < 8 or not re.search(r"[A-Za-z0-9@#$%^&+=]", password):
+            flash("Password must be at least 8 characters long and contain letters, numbers, and special characters.", 'danger')
+            return redirect(url_for('auth.sign_up'))
+
+        # Create new user
         new_user = User(
             first_name=first_name,
             last_name=last_name,
+            age=int(age),
+            gender=gender,
             email=email,
             phone_number=phone_number,
-            address=address,
-            gender=gender,
-            password_hash=generate_password_hash(password),
-            birthdate=birthdate
+            state=state,
+            city=city,
+            role=role,
+            password_hash=generate_password_hash(password)
+            
         )
 
         try:
             db.session.add(new_user)
             db.session.commit()
-            flash("Account created successfully.", 'success')
+            flash("Account created successfully! You can now log in.", 'success')
             return redirect(url_for('auth.login'))
         except Exception as e:
             db.session.rollback()
-            flash("An error occurred during registration.", 'error')
-            print(f"Error: {e}")
+            logger.error(f"Error adding user to the database: {e}")
+            flash("An error occurred during registration. Please try again later.", 'danger')
             return redirect(url_for('auth.sign_up'))
 
-    return render_template('auth/signup.html')
+    return render_template('auth/signup.html', active_page='sign_up')
 
 #route forget password
 @auth_bp.route('/forgot_password', methods=['GET', 'POST'])
@@ -82,7 +121,7 @@ def forgot_password():
         user = User.query.filter_by(email=email).first()
 
         if not user:
-            flash("This email is not registered.", 'error')
+            flash("This email is not registered.", 'danger')
             return redirect(url_for('auth.forgot_password'))
 
         otp = random.randint(100000, 999999)
@@ -95,7 +134,7 @@ def forgot_password():
             flash("OTP sent to your email.", 'success')
             return redirect(url_for('auth.otp_verification'))
         except Exception as e:
-            flash("Failed to send OTP. Try again.", 'error')
+            flash("Failed to send OTP. Try again.", 'danger')
             print(f"Error: {e}")
             return redirect(url_for('auth.forgot_password'))
 
@@ -155,7 +194,7 @@ def new_password():
             return redirect(url_for('auth.forgot_password'))
 
         try:
-            user.password = generate_password_hash(password)
+            user.password_hash = generate_password_hash(password)
             db.session.commit()
             flash("Password reset successfully. Please log in.", 'success')
             return redirect(url_for('auth.login'))
