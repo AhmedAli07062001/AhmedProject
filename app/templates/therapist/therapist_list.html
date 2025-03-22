@@ -2,199 +2,116 @@
 
 {% block title %}Therapist List{% endblock %}
 
-
 {% block content %}
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 <div class="app-hero-header d-flex align-items-center">
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
-      <a href="index.html">Home</a>
+      <a href="{{ url_for('general.home') }}">Home</a>
     </li>
-    <li class="breadcrumb-item text-primary" aria-current="page">Admin Dashboard</li>
+    <li class="breadcrumb-item text-primary" aria-current="page">Therapist List</li>
   </ol>
 </div>
 
 <div class="app-body">
+  <!-- Row starts -->
+  <div class="row gx-3">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="card-title">Therapist List</h5>
+          <a href="{{ url_for('admin.add_therapist') }}" class="btn btn-primary ms-auto">Add Therapist</a>
+        </div>
+        <div class="card-body">
+          <!-- Debugging: Check if therapists are passed -->
+          {% if therapists %}
+            <p>Number of therapists: {{ therapists|length }}</p>
+          {% else %}
+            <p>No therapists found.</p>
+          {% endif %}
 
-    <!-- Row starts -->
-    <div class="row gx-3">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="card-title">Doctors List</h5>
-            <a href="add-doctors.html" class="btn btn-primary ms-auto">Add Doctor</a>
-          </div>
-          <div class="card-body">
-
-            <!-- Table starts -->
-            <div class="table-responsive">
-              <div id="basicExample_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="basicExample_length"></div></div><div class="col-sm-12 col-md-6"><div id="basicExample_filter" class="dataTables_filter"></div></div></div><div class="row"><div class="col-sm-12"><table id="basicExample" class="table truncate m-0 align-middle dataTable no-footer" aria-describedby="basicExample_info">
-                <thead>
-                  <tr><th class="sorting sorting_asc" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 28.4625px;">ID</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Doctor Name: activate to sort column ascending" style="width: 153.875px;">Doctor Name</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending" style="width: 101.375px;">Designation</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Sun: activate to sort column ascending" style="width: 36.9375px;">Sun</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Mon: activate to sort column ascending" style="width: 59.7625px;">Mon</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Tue: activate to sort column ascending" style="width: 59.7625px;">Tue</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Wed: activate to sort column ascending" style="width: 59.7625px;">Wed</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Thu: activate to sort column ascending" style="width: 59.7625px;">Thu</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Fri: activate to sort column ascending" style="width: 59.7625px;">Fri</th><th class="text-center sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Sat: activate to sort column ascending" style="width: 59.7625px;">Sat</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 99.175px;">Actions</th></tr>
-                </thead>
-                <tbody>
-                <tr class="odd">
-                    <td class="sorting_1">#0008</td>
-                    <td>
-                      Allan Stuart
-                    </td>
-                    <td>Oncologist</td>
-                    <td class="text-center text-danger">NA</td>
-                    <td class="text-center">9AM-2PM</td>
-                    <td class="text-center">9AM-2PM</td>
-                    <td class="text-center">9AM-2PM</td>
-                    <td class="text-center">9AM-2PM</td>
-                    <td class="text-center">9AM-2PM</td>
-                    <td class="text-center">9AM-2PM</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-doctors.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Doctor Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="doctors-profile.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Profile">
-                          <i class="ri-eye-line"></i>
-                        </a>
+          <!-- Table starts -->
+          <div class="table-responsive">
+            <table id="therapistTable" class="table truncate m-0 align-middle">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Address</th>
+                  <th>Designation</th>
+                  <th>Phone Number</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for therapist in therapists %}
+                <tr>
+                  <td>{{ therapist.id }}</td>
+                  <td>{{ therapist.first_name }} {{ therapist.last_name }}</td>
+                  <td>{{ therapist.age }}</td>
+                  <td>{{ therapist.gender }}</td>
+                  <td>{{ therapist.city }}, {{ therapist.state }}</td>
+                  <td>{{ therapist.designation }}</td>
+                  <td>{{ therapist.phone_number }}</td>
+                  <td>
+                    <div class="d-inline-flex gap-1">
+                      <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow{{ therapist.id }}">
+                        <i class="ri-delete-bin-line"></i>
+                      </button>
+                      <a href="{{ url_for('admin.edit_therapist', therapist_id=therapist.id) }}" class="btn btn-outline-success btn-sm">
+                        <i class="ri-edit-box-line"></i>
+                      </a>
+                      <a href="#" class="btn btn-outline-info btn-sm">
+                        <i class="ri-eye-line"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Delete Modal for each therapist -->
+                <div class="modal fade" id="delRow{{ therapist.id }}" tabindex="-1" aria-labelledby="delRowLabel{{ therapist.id }}" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="delRowLabel{{ therapist.id }}">Confirm</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                    </td>
-                  </tr><tr class="even">
-                    <td class="sorting_1">#0021</td>
-                    <td>
-                      Smith White
-                    </td>
-                    <td>Neurology</td>
-                    <td class="text-center text-danger">NA</td>
-                    <td class="text-center">3PM-5PM</td>
-                    <td class="text-center">3PM-5PM</td>
-                    <td class="text-center">3PM-5PM</td>
-                    <td class="text-center">3PM-5PM</td>
-                    <td class="text-center">3PM-5PM</td>
-                    <td class="text-center">3PM-5PM</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-doctors.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Doctor Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="doctors-profile.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Profile">
-                          <i class="ri-eye-line"></i>
-                        </a>
+                      <div class="modal-body">
+                        Are you sure you want to delete the therapist from the list?
                       </div>
-                    </td>
-                  </tr><tr class="odd">
-                    <td class="sorting_1">#0026</td>
-                    <td>
-                      Gilbert Sandoval
-                    </td>
-                    <td>Cardiologist</td>
-                    <td class="text-center text-danger">NA</td>
-                    <td class="text-center">5PM-9PM</td>
-                    <td class="text-center">5PM-9PM</td>
-                    <td class="text-center">5PM-9PM</td>
-                    <td class="text-center">5PM-9PM</td>
-                    <td class="text-center">5PM-9PM</td>
-                    <td class="text-center">5PM-9PM</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-doctors.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Doctor Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="doctors-profile.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Profile">
-                          <i class="ri-eye-line"></i>
-                        </a>
+                      <div class="modal-footer">
+                        <div class="d-flex justify-content-end gap-2">
+                          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+                          <a href="{{ url_for('therapist.delete_therapist', therapist_id=therapist.id) }}" class="btn btn-danger">Yes</a>
+                        </div>
                       </div>
-                    </td>
-                  </tr><tr class="even">
-                    <td class="sorting_1">#0039</td>
-                    <td>
-                      Bernardo James
-                    </td>
-                    <td>Clinical Doctor</td>
-                    <td class="text-center text-danger">NA</td>
-                    <td class="text-center">7AM-9AM</td>
-                    <td class="text-center">7AM-9AM</td>
-                    <td class="text-center">7AM-9AM</td>
-                    <td class="text-center">7AM-9AM</td>
-                    <td class="text-center">7AM-9AM</td>
-                    <td class="text-center">7AM-9AM</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-doctors.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Doctor Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="doctors-profile.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Profile">
-                          <i class="ri-eye-line"></i>
-                        </a>
-                      </div>
-                    </td>
-                  </tr><tr class="odd">
-                    <td class="sorting_1">#0044</td>
-                    <td>
-                      Ronald Sullivan
-                    </td>
-                    <td>Radiologist</td>
-                    <td class="text-center text-danger">NA</td>
-                    <td class="text-center">3PM-9PM</td>
-                    <td class="text-center">3PM-9PM</td>
-                    <td class="text-center">3PM-9PM</td>
-                    <td class="text-center">3PM-9PM</td>
-                    <td class="text-center">3PM-9PM</td>
-                    <td class="text-center">3PM-9PM</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="#" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Doctor Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="doctors-profile.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Profile">
-                          <i class="ri-eye-line"></i>
-                        </a>
-                      </div>
-                    </td>
-                  </tbody>
-              </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="basicExample_info" role="status" aria-live="polite">Showing Page 1 of 1</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="basicExample_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="basicExample_previous"><a href="#" aria-controls="basicExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="basicExample" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="basicExample_next"><a href="#" aria-controls="basicExample" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
-            </div>
-            <!-- Table ends -->
-
-            <!-- Modal Delete Row -->
-            <div class="modal fade" id="delRow" tabindex="-1" aria-labelledby="delRowLabel" aria-hidden="true">
-              <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="delRowLabel">
-                      Confirm
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    Are you sure you want to delete the therapist from list?
-                  </div>
-                  <div class="modal-footer">
-                    <div class="d-flex justify-content-end gap-2">
-                      <button class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">No</button>
-                      <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Yes</button>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
+          <!-- Table ends -->
         </div>
       </div>
     </div>
-    <!-- Row ends -->
-
   </div>
+  <!-- Row ends -->
+</div>
 {% endblock %}

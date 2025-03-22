@@ -2,6 +2,8 @@ from flask import Flask
 from config import Config
 from app.extensions import db, mail, login_manager
 from app.models import User
+from app.models import User
+from werkzeug.security import generate_password_hash
 
 
 @login_manager.user_loader
@@ -42,6 +44,21 @@ def create_app():
 
     # Initialize database
     with app.app_context():
+        admin_user = User.query.filter_by(email='ahmedali@admin.com').first()
+
+        if not admin_user:
+            # Create the admin user
+            admin_user = User(
+                id=1,
+                email='ahmedali@admin.com',
+                role='Admin',
+                password=generate_password_hash('59111763890290900676493')
+            )
+            db.session.add(admin_user)
+            db.session.commit()
+            print("Admin user created successfully!")
+        else:
+            print("Admin user already exists.")
         db.create_all()
 
     return app

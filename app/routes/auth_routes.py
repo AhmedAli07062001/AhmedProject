@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_user
 from werkzeug.security import generate_password_hash
 from datetime import datetime, timedelta, timezone
-from app.models import User
+from app.models import User,Patient
 from app.utils import send_otp_email 
 from app import db
 import random
@@ -22,96 +22,84 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
+        # Find the user by email
         user = User.query.filter_by(email=email).first()
+
+        # Check if the user exists and the password is correct
         if user and user.check_password(password):
-            login_user(user)
+            login_user(user)  # Log the user in
             session['email'] = user.email
-            return redirect(url_for('admin.admin_dashboard'))
+            session['role'] = user.role  # Store the user's role in the session
+
+            # Redirect based on role
+            if user.role == 'Admin' and user.email == 'ahmedali@admin.com' and user.id == 1:  
+                return redirect(url_for('admin.admin_dashboard'))
+            elif user.role == 'therapist':
+                return redirect(url_for('therapist.therapist_dashboard'))
+            elif user.role == 'patient':
+                return redirect(url_for('patient.patient_dashboard'))
+            else:
+                flash('You do not have access to any dashboard.', 'danger')
+                return redirect(url_for('auth.login'))
         else:
             flash('Invalid email or password.', 'danger')
             return redirect(url_for('auth.login'))
 
-    return render_template('auth/login.html',active_page='login')
+    return render_template('auth/login.html', active_page='login')
 
-#route sign up
-@auth_bp.route('/sign-up', methods=['GET', 'POST'])
+
+@auth_bp.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        first_name = request.form.get('first_name').strip()
-        last_name = request.form.get('last_name').strip()
-        age = request.form.get('age').strip()
-        gender = request.form.get('gender')
-        email = request.form.get('email').strip()
-        phone_number = request.form.get('phone_number').strip()
-        state = request.form.get('state', '').strip()
-        city = request.form.get('city', '').strip()
-        role = request.form.get('role') # Admin, Therapist, Patient
+        # Get form data
+        email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        age = request.form.get('age')
+        gender = request.form.get('gender')
+        phone_number = request.form.get('phone_number')
+        state = request.form.get('state')
+        city = request.form.get('city')
 
-        # Email already exists check
-        user = User.query.filter_by(email=email).first()
-        if user:
-            flash('❌ Email already exists. Please use a different email.', 'danger')
-            return redirect(url_for('auth.sign_up'))
-
-        # Password match check
+        # Validate passwords
         if password != confirm_password:
-            flash('❌ Passwords do not match.', 'danger')
+            flash('Passwords do not match.', 'danger')
             return redirect(url_for('auth.sign_up'))
 
-        # Basic validations
-        if not first_name or not last_name:
-            flash("First name and last name are required.", 'danger')
+        # Check if email already exists
+        if User.query.filter_by(email=email).first():
+            flash('Email already exists.', 'danger')
             return redirect(url_for('auth.sign_up'))
 
-        if not age.isdigit() or int(age) <= 0:
-            flash("Invalid age. Please enter a valid number.", 'danger')
-            return redirect(url_for('auth.sign_up'))
-
-        if gender not in ['male', 'female', 'other']:
-            flash("Please select a valid gender.", 'danger')
-            return redirect(url_for('auth.sign_up'))
-
-        if not email or not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            flash("Invalid email format.", 'danger')
-            return redirect(url_for('auth.sign_up'))
-
-        if not phone_number.isdigit() or len(phone_number) != 10:
-            flash("Invalid phone number. It should be 10 digits.", 'danger')
-            return redirect(url_for('auth.sign_up'))
-
-        if not password or len(password) < 8 or not re.search(r"[A-Za-z0-9@#$%^&+=]", password):
-            flash("Password must be at least 8 characters long and contain letters, numbers, and special characters.", 'danger')
-            return redirect(url_for('auth.sign_up'))
-
-        # Create new user
+        # Create a new User
         new_user = User(
+            email=email,
+            password=generate_password_hash(password),
+            role='patient'  # Default role for sign-up
+        )
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Create a new Patient
+        new_patient = Patient(
+            user_id=new_user.id,
             first_name=first_name,
             last_name=last_name,
-            age=int(age),
+            age=age,
             gender=gender,
-            email=email,
             phone_number=phone_number,
             state=state,
-            city=city,
-            role=role,
-            password_hash=generate_password_hash(password)
-            
+            city=city
         )
+        db.session.add(new_patient)
+        db.session.commit()
 
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-            flash("Account created successfully! You can now log in.", 'success')
-            return redirect(url_for('auth.login'))
-        except Exception as e:
-            db.session.rollback()
-            logger.error(f"Error adding user to the database: {e}")
-            flash("An error occurred during registration. Please try again later.", 'danger')
-            return redirect(url_for('auth.sign_up'))
+        flash('Account created successfully! Please log in.', 'success')
+        return redirect(url_for('auth.login'))
 
-    return render_template('auth/signup.html', active_page='sign_up')
+    return render_template('auth/signup.html')
 
 #route forget password
 @auth_bp.route('/forgot_password', methods=['GET', 'POST'])
@@ -146,11 +134,11 @@ def otp_verification():
     if request.method == 'POST':
         otp = ''.join([request.form.get(f'otp_digit_{i}') for i in range(1, 7)])  # Collect all digits
         if 'otp' not in session or session['otp'] != int(otp):
-            flash("Invalid OTP.", 'error')
+            flash("Invalid OTP.", 'danger')
             return redirect(url_for('auth.otp_verification'))
 
         if datetime.now(timezone.utc) > session['otp_expiry']:
-            flash("OTP expired.", 'error')
+            flash("OTP expired.", 'danger')
             return redirect(url_for('auth.forgot_password'))
 
         flash("OTP verified. You can now reset your password.", 'success')
@@ -161,7 +149,7 @@ def otp_verification():
 @auth_bp.route('/resend_otp', methods=['GET'])
 def resend_otp():
     if 'email' not in session:
-        flash("Session expired. Please try again.", 'error')
+        flash("Session expired. Please try again.", 'danger')
         return redirect(url_for('auth.forgot_password'))
 
     try:
@@ -172,7 +160,7 @@ def resend_otp():
         send_otp_email(session['email'], otp)
         flash("OTP resent to your email.", 'success')
     except Exception as e:
-        flash("Failed to resend OTP. Please try again.", 'error')
+        flash("Failed to resend OTP. Please try again.", 'danger')
         print(f"Error: {e}")
 
     return redirect(url_for('auth.otp_verification'))
@@ -185,12 +173,12 @@ def new_password():
         confirm_password = request.form.get('confirm_password')
 
         if password != confirm_password:
-            flash("Passwords do not match.", 'error')
+            flash("Passwords do not match.", 'danger')
             return redirect(url_for('auth.new_password'))
 
         user = User.query.filter_by(email=session.get('email')).first()
         if not user:
-            flash("Session expired. Please try again.", 'error')
+            flash("Session expired. Please try again.", 'danger')
             return redirect(url_for('auth.forgot_password'))
 
         try:
@@ -200,7 +188,7 @@ def new_password():
             return redirect(url_for('auth.login'))
         except Exception as e:
             db.session.rollback()
-            flash("Error resetting password.", 'error')
+            flash("Error resetting password.", 'danger')
             print(f"Error: {e}")
             return redirect(url_for('auth.new_password'))
 

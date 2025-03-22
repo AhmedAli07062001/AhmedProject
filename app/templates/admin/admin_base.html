@@ -68,12 +68,12 @@
         </div>
         <ul class="sidebar-menu">
           <li class="{% if active_page == 'admin_dashboard' %}active current-page{% endif %}"><a href="{{ url_for('admin.admin_dashboard') }}" class="sidebar-link"><i class="ri-dashboard-line"></i> Dashboard</a></li>
-          <li class="{% if active_page == 'patient_list' %}active current-page{% endif %}"><a href="{{ url_for('patient.patient_list') }}" class="sidebar-link"><i class="ri-user-line"></i>Patinet List</a></li>
+          <li class="{% if active_page == 'patient_list' %}active current-page{% endif %}"><a href="{{ url_for('patient.patient_list') }}" class="sidebar-link"><i class="ri-user-line"></i> Patient List</a></li>
+          <li class="{% if active_page == 'edit_patient' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_patient') }}" class="sidebar-link"><i class="ri-edit-line"></i> Edit Patient</a></li>
           <li class="{% if active_page == 'therapist_list' %}active current-page{% endif %}"><a href="{{ url_for('therapist.therapist_list') }}" class="sidebar-link"><i class="ri-file-list-line"></i> Therapist List</a></li>
-          <li class="{% if active_page == 'edit_user' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_user') }}" class="sidebar-link"><i class="ri-edit-line"></i>Edit Patient</a></li>
-          <li class="{% if active_page == 'edit_appointment' %}active current-page{% endif %}"><a href="{{ url_for('appointment.edit_appoint') }}" class="sidebar-link"><i class="ri-calendar-line"></i>Edit Appintment</a></li>
-          <li class="{% if active_page == 'add_doctor' %}active current-page{% endif %}"><a href="{{ url_for('admin.add_doctor') }}" class="sidebar-link"><i class="ri-hospital-line"></i> Add Therapist</a></li>
-          <li class="{% if active_page == 'edit_doctor' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_doctor') }}" class="sidebar-link"><i class="ri-edit-line"></i> Edit Therapist</a></li>
+          <li class="{% if active_page == 'add_therapist' %}active current-page{% endif %}"><a href="{{ url_for('admin.add_therapist') }}" class="sidebar-link"><i class="ri-hospital-line"></i> Add Therapist</a></li>
+          <li class="{% if active_page == 'edit_therapist' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_therapist') }}" class="sidebar-link"><i class="ri-edit-line"></i> Edit Therapist</a></li>
+          <li class="{% if active_page == 'edit_appointment' %}active current-page{% endif %}"><a href="{{ url_for('appointment.edit_appoint') }}" class="sidebar-link"><i class="ri-calendar-line"></i> Edit Appointment</a></li>
         </ul>
               
       </nav>

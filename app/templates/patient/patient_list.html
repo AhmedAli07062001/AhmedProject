@@ -3,17 +3,30 @@
 {% block title %}Patient List{% endblock %}
 
 {% block content %}
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 <!-- App hero header starts -->
 <div class="app-hero-header d-flex align-items-center">
-
   <!-- Breadcrumb starts -->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
-      <a href="index.html">Home</a>
+      <a href="{{ url_for('general.home') }}">Home</a>
     </li>
     <li class="breadcrumb-item text-primary" aria-current="page">
-      Edit Doctor Profile
+      Patient List
     </li>
   </ol>
   <!-- Breadcrumb ends -->
@@ -22,133 +35,94 @@
 
 <!-- App body starts -->
 <div class="app-body">
+  <!-- Row starts -->
+  <div class="row gx-3">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="card-title">Patients List</h5>
+        </div>
+        <div class="card-body">
+          {% if patients %}
+            <p>Number of patients: {{ patients|length }}</p>
+          {% else %}
+            <p>No patients found.</p>
+          {% endif %}
+          <!-- Table starts -->
+          <div class="table-responsive">
+            <table id="basicExample" class="table truncate m-0 align-middle dataTable no-footer">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Patient Name</th>
+                  <th>Gender</th>
+                  <th>Age</th>
+                  <th>Phone</th>
+                  <th>State</th>
+                  <th>City</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for patient in patients %}
+                <tr>
+                  <td>{{ patient.id }}</td>
+                  <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+                  <td>
+                    <span class="badge {% if patient.gender == 'male' %}bg-info-subtle text-info{% else %}bg-warning-subtle text-warning{% endif %}">
+                      {{ patient.gender }}
+                    </span>
+                  </td>
+                  <td>{{ patient.age }}</td>
+                  <td>{{ patient.phone_number }}</td>
+                  <td>{{ patient.state }}</td>
+                  <td>{{ patient.city }}</td>
+                  <td>
+                    <div class="d-inline-flex gap-1">
+                      <!-- Delete Button -->
+                      <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ patient.id }}">
+                        <i class="ri-delete-bin-line"></i>
+                      </button>
+                      <!-- Edit Button -->
+                      <a href="{{ url_for('admin.edit_patient', patient_id=patient.id) }}" class="btn btn-outline-success btn-sm">
+                        <i class="ri-edit-box-line"></i>
+                      </a>
+                      <!-- View Button -->
+                      <a href="#" class="btn btn-outline-info btn-sm">
+                        <i class="ri-eye-line"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
 
-    <!-- Row starts -->
-    <div class="row gx-3">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="card-title">Patients List</h5>
-            <a href="add-patient.html" class="btn btn-primary ms-auto">Add Patient</a>
-          </div>
-          <div class="card-body">
-
-            <!-- Table starts -->
-            <div class="table-responsive">
-              <div id="basicExample_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="basicExample_length"></div></div><div class="col-sm-12 col-md-6"><div id="basicExample_filter" class="dataTables_filter"></div></div></div><div class="row"><div class="col-sm-12"><table id="basicExample" class="table truncate m-0 align-middle dataTable no-footer" aria-describedby="basicExample_info">
-                <thead>
-                  <tr><th class="sorting sorting_asc" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="No.: activate to sort column descending" style="width: 25.325px;">Id</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Patient Name: activate to sort column ascending" style="width: 114.85px;">Patient Name</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Gender: activate to sort column ascending" style="width: 47.75px;">Gender</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 26px;">Age</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Treatment: activate to sort column ascending" style="width: 66.3625px;">Treatment</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Mobile: activate to sort column ascending" style="width: 55.625px;">Mobile</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 89.2875px;">Email</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Address: activate to sort column ascending" style="width: 148.512px;">Address</th><th class="sorting" tabindex="0" aria-controls="basicExample" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 76.6px;">Actions</th></tr>
-                </thead>
-                <tbody>
-                <tr class="odd">
-                    <td class="sorting_1">#80762</td>
-                    <td>Wendi Combs</td>
-                    <td><span class="badge bg-warning-subtle text-warning">Female</span></td>
-                    <td>28</td>
-                    <td>Cyclospora</td>
-                    <td>0987654321</td>
-                    <td>test@testing.com</td>
-                    <td>360 Branden Knoll</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-patient.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Patient Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="patient-dashboard.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Dashboard">
-                          <i class="ri-eye-line"></i>
-                        </a>
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteModal{{ patient.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ patient.id }}" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ patient.id }}">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                    </td>
-                  </tr><tr class="even">
-                    <td class="sorting_1">#82348</td>
-                    <td>
-                      Reba Fisher
-                    </td>
-                    <td><span class="badge bg-warning-subtle text-warning">Female</span></td>
-                    <td>59</td>
-                    <td>
-                      Alphaviruses
-                    </td>
-                    <td>0987654321</td>
-                    <td>test@testing.com</td>
-                    <td>806 Je Alley, Robelfurt</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-patient.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Patient Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="patient-dashboard.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Dashboard">
-                          <i class="ri-eye-line"></i>
-                        </a>
+                      <div class="modal-body">
+                        Are you sure you want to delete {{ patient.first_name }} {{ patient.last_name }}?
                       </div>
-                    </td>
-                  </tr><tr class="odd">
-                    <td class="sorting_1">#82894</td>
-                    <td>
-                      Nick Morrow
-                    </td>
-                    <td><span class="badge bg-info-subtle text-info">Male</span></td>
-                    <td>69</td>
-                    <td>
-                      Thyroid
-                    </td>
-                    <td>0987654321</td>
-                    <td>test@testing.com</td>
-                    <td>835 Lorena Stream</td>
-                    <td>
-                      <div class="d-inline-flex gap-1">
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delRow">
-                          <i class="ri-delete-bin-line"></i>
-                        </button>
-                        <a href="edit-patient.html" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Patient Details">
-                          <i class="ri-edit-box-line"></i>
-                        </a>
-                        <a href="patient-dashboard.html" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Dashboard">
-                          <i class="ri-eye-line"></i>
-                        </a>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="{{ url_for('patient.delete_patient', patient_id=patient.id) }}" class="btn btn-danger">Delete</a>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="basicExample_info" role="status" aria-live="polite">Showing Page 1 of 1</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="basicExample_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="basicExample_previous"><a href="#" aria-controls="basicExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="basicExample" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="basicExample_next"><a href="#" aria-controls="basicExample" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
-            </div>
-            <!-- Table ends -->
-
-            <!-- Modal Delete Row -->
-            <div class="modal fade" id="delRow" tabindex="-1" aria-labelledby="delRowLabel" aria-hidden="true">
-              <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="delRowLabel">
-                      Confirm
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    Are you sure you want to delete the patient?
-                  </div>
-                  <div class="modal-footer">
-                    <div class="d-flex justify-content-end gap-2">
-                      <button class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">No</button>
-                      <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Yes</button>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
+          <!-- Table ends -->
         </div>
       </div>
     </div>
-    <!-- Row ends -->
-
   </div>
+  <!-- Row ends -->
+</div>
 <!-- App body ends -->
 {% endblock %}
