@@ -23,7 +23,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
-      <a href="index.html">Home</a>
+      <a href="{{ url_for('general.home') }}">Home</a>
     </li>
     <li class="breadcrumb-item text-primary" aria-current="page">
       Update Appointment
@@ -42,92 +42,78 @@
           <h5 class="card-title">Edit Appointment</h5>
         </div>
         <div class="card-body">
+          <form method="POST">
+            {{ form.hidden_tag() }}  <!-- CSRF token -->
 
-          <!-- Row starts -->
-          <div class="row gx-3">
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a5">Appointment Id</label>
-                <input type="text" class="form-control" id="a5" placeholder="Enter Appointment Id">
+            <!-- Row starts -->
+            <div class="row gx-3">
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.appointment_id.label(class="form-label") }}
+                  {{ form.appointment_id(class="form-control", placeholder="Enter Appointment Id") }}
+                </div>
               </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a1">Patient Name</label>
-                <input type="text" class="form-control" id="a1" placeholder="Enter Patient Name">
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.patient_name.label(class="form-label") }}
+                  {{ form.patient_name(class="form-control", placeholder="Enter Patient Name", readonly=true) }}
+                </div>
               </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a4">Age</label>
-                <input type="number" class="form-control" id="a4" placeholder="Enter Patient Age">
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.age.label(class="form-label") }}
+                  {{ form.age(class="form-control", placeholder="Enter Patient Age", readonly=true) }}
+                </div>
               </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="selectGender1">Gender<span class="text-danger">*</span></label>
-                <div class="m-0">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="selectGenderOptions" id="selectGender1" value="male">
-                    <label class="form-check-label" for="selectGender1">Male</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="selectGenderOptions" id="selectGender2" value="female">
-                    <label class="form-check-label" for="selectGender2">Female</label>
-                  </div>
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.gender.label(class="form-label") }}
+                  {{ form.gender(class="form-control", readonly=true) }}
+                </div>
+              </div>
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.patient_email.label(class="form-label") }}
+                  {{ form.patient_email(class="form-control", placeholder="Enter Patient Email", readonly=true) }}
+                </div>
+              </div>
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.appointment_date.label(class="form-label") }}
+                  {{ form.appointment_date(class="form-control") }}
+                </div>
+              </div>
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.appointment_time.label(class="form-label") }}
+                  {{ form.appointment_time(class="form-control") }}
+                </div>
+              </div>
+              <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="mb-3">
+                  {{ form.specialist.label(class="form-label") }}
+                  {{ form.specialist(class="form-select", readonly=true) }}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="mb-3">
+                  {{ form.problem.label(class="form-label") }}
+                  {{ form.problem(class="form-control", placeholder="Medical Issue health problem", rows="3") }}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="d-flex gap-2 justify-content-end">
+                  <a href="{{ url_for('appointment.appoint_list') }}" class="btn btn-outline-secondary">
+                    Cancel
+                  </a>
+                  <button type="submit" class="btn btn-primary">
+                    Update Appointment
+                  </button>
                 </div>
               </div>
             </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a2">Patient Email</label>
-                <input type="email" class="form-control" id="a2" placeholder="Enter Patient Email">
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a6">Select Date</label>
-                <input type="date" class="form-control" id="a6" placeholder="28/05/2024">
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a7">Select Time</label>
-                <input type="time" class="form-control" id="a7" value="Select time">
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="a8">Speacilist Doctor</label>
-                <select class="form-select" id="a8">
-                  <option value="0">Select</option>
-                  <option value="1">Speech-Language Pathologist (SLP)</option>
-                  <option value="2">Clinical Linguist</option>
-                  <option value="3">Communication Disorders Specialist</option>
-                  <option value="4">Voice and Swallowing Specialist</option>
-                  <option value="5">Neurogenic Communication Expert</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="mb-3">
-                <label class="form-label" for="a9">Problem</label>
-                <textarea class="form-control" id="a9" placeholder="Medical Issue health problem" rows="3"></textarea>
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="d-flex gap-2 justify-content-end">
-                <a href="appointments-list.html" class="btn btn-outline-secondary">
-                  Cancel
-                </a>
-                <a href="appointments-list.html" class="btn btn-primary">
-                  Update Appointment
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- Row ends -->
-
+            <!-- Row ends -->
+          </form>
         </div>
       </div>
     </div>
@@ -137,61 +123,3 @@
 </div>
 <!-- App body ends -->
 {% endblock %}
-
-{% block extra_js %}
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Get today's date
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth(); // 0-indexed (0 = January, 11 = December)
-    const maxDate = new Date(today);
-    maxDate.setMonth(currentMonth + 1);
-
-    // Populate Year dropdown
-    const yearSelect = document.getElementById("sessionYear");
-    for (let year = currentYear; year <= currentYear + 1; year++) {
-      let option = document.createElement("option");
-      option.value = year;
-      option.textContent = year;
-      yearSelect.appendChild(option);
-    }
-
-    // Populate Month dropdown
-    const monthSelect = document.getElementById("sessionMonth");
-    for (let i = 0; i < 12; i++) {
-      let option = document.createElement("option");
-      option.value = i;
-      option.textContent = new Date(0, i).toLocaleString('default', { month: 'long' });
-      monthSelect.appendChild(option);
-    }
-
-    // Handle Month change to update Day options
-    monthSelect.addEventListener("change", function () {
-      const year = parseInt(yearSelect.value);
-      const month = parseInt(this.value);
-      populateDays(year, month);
-    });
-
-    // Populate Days based on selected Month and Year
-    function populateDays(year, month) {
-      const daySelect = document.getElementById("sessionDay");
-      daySelect.innerHTML = "<option value=''>Day</option>"; // Reset Day options
-
-      const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get number of days in the selected month
-      for (let day = 1; day <= daysInMonth; day++) {
-        let option = document.createElement("option");
-        option.value = day;
-        option.textContent = day;
-        daySelect.appendChild(option);
-      }
-    }
-
-    // Set max date to be 1 month from today for validation
-    const maxDateStr = maxDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD
-    document.getElementById("sessionDate").setAttribute("max", maxDateStr);
-  });
-</script>
-{% endblock %}
-</body>
-</html>

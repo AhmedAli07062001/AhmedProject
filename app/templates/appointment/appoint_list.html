@@ -1,33 +1,8 @@
-{% extends "therapist/therapist_base.html" %}
+{% extends "admin/admin_base.html" %}
 
-{% block title %}Therapy Plans{% endblock %}
+{% block title %}Appointment List{% endblock %}
 
 {% block content %}
-{% block extra_css %}
-
-<style>
-  .badge {
-    font-size: 0.85rem;
-    padding: 5px 10px;
-  }
-
-  .table-hover tbody tr:hover {
-    background-color: #f8f9fa;
-  }
-
-  .rounded-circle {
-    object-fit: cover;
-  }
-
-  .modal-content {
-    border-radius: 20px;
-  }
-
-  .btn-sm i {
-    font-size: 1rem;
-  }
-</style>
-{% endblock %}
 <!-- Flash Messages -->
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
@@ -44,124 +19,124 @@
 
 <!-- App hero header starts -->
 <div class="app-hero-header d-flex align-items-center">
-
   <!-- Breadcrumb starts -->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
-      <a href="index.html">Home</a>
+      <a href="{{ url_for('general.home') }}">Home</a>
     </li>
     <li class="breadcrumb-item text-primary" aria-current="page">
-      Appointments
+      Appointment List
     </li>
   </ol>
   <!-- Breadcrumb ends -->
 </div>
-<!-- App body starts -->
+<!-- App Hero header ends -->
+
 <!-- App body starts -->
 <div class="app-body">
   <!-- Row starts -->
   <div class="row gx-3">
-    <div class="col-sm-12 col-12">
-      <div class="card shadow-sm rounded-4">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-          <h4>Therapy Plans</h4>
-          <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addPlanModal">
-            + Add New Plan
-          </button>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="card-title">Appointment List</h5>
+          <a href="{{ url_for('appointment.add_appointment') }}" class="btn btn-primary ms-auto">Add Appointment</a>
         </div>
-        <div class="card-body p-4">
-          <!-- Therapy Plan Information Table -->
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>#</th>
-                <th>Plan Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Example therapy plan rows -->
-              <tr>
-                <td>1</td>
-                <td>Speech Rehabilitation Plan</td>
-                <td>2025-01-01</td>
-                <td>2025-03-01</td>
-                <td>
-                  <span class="badge bg-primary">Active</span>
-                </td>
-                <td>
-                  <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="View Plan Details">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                  <button class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip" title="Edit Plan">
-                    <i class="bi bi-pencil"></i>
-                  </button>
-                  <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Plan">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <!-- Add more rows dynamically -->
-            </tbody>
-          </table>
+        <div class="card-body">
+          {% if appointments %}
+            <p>Number of appointments: {{ appointments|length }}</p>
+          {% else %}
+            <p>No appointments found.</p>
+          {% endif %}
+          <!-- Table starts -->
+          <div class="table-responsive">
+            <table id="basicExample" class="table truncate m-0 align-middle dataTable no-footer">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Patient Name</th>
+                  <th>Therapist Name</th>
+                  <th>Appointment Date</th>
+                  <th>Appointment Time</th>
+                  <th>Problem</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                  <td>{{ appointment.id }}</td>
+                  <td>{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
+                  <td>{{ appointment.therapist.first_name }} {{ appointment.therapist.last_name }}</td>
+                  <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
+                  <td>{{ appointment.appointment_time.strftime('%H:%M') }}</td>
+                  <td>{{ appointment.problem }}</td>
+                  <td>
+                    <span class="badge 
+                      {% if appointment.status == 'Scheduled' %}bg-info-subtle text-info
+                      {% elif appointment.status == 'Completed' %}bg-success-subtle text-success
+                      {% elif appointment.status == 'Cancelled' %}bg-danger-subtle text-danger
+                      {% endif %}">
+                      {{ appointment.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-inline-flex gap-1">
+                      <!-- Delete Button -->
+                      <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ appointment.id }}">
+                        <i class="ri-delete-bin-line"></i>
+                      </button>
+                      <!-- Edit Button -->
+                      <a href="{{ url_for('appointment.edit_appointment', appointment_id=appointment.id) }}" class="btn btn-outline-success btn-sm">
+                        <i class="ri-edit-box-line"></i>
+                      </a>
+                      <!-- View Button -->
+                      <a href="#" class="btn btn-outline-info btn-sm">
+                        <i class="ri-eye-line"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteModal{{ appointment.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ appointment.id }}" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ appointment.id }}">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete this appointment for {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="{{ url_for('appointment.delete_appointment', appointment_id=appointment.id) }}" class="btn btn-danger">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- Table ends -->
         </div>
       </div>
     </div>
   </div>
   <!-- Row ends -->
-
-  <!-- Add Therapy Plan Modal -->
-  <div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="addPlanModalLabel">Add New Therapy Plan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="planName" class="form-label">Plan Name</label>
-              <input type="text" class="form-control" id="planName" required>
-            </div>
-            <div class="mb-3">
-              <label for="startDate" class="form-label">Start Date</label>
-              <input type="date" class="form-control" id="startDate" required>
-            </div>
-            <div class="mb-3">
-              <label for="endDate" class="form-label">End Date</label>
-              <input type="date" class="form-control" id="endDate" required>
-            </div>
-            <div class="mb-3">
-              <label for="planDetails" class="form-label">Plan Details</label>
-              <textarea class="form-control" id="planDetails" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Save Plan</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <!-- App body ends -->
-
-<!-- App body ends -->
-
-</div>
-<!-- App container ends -->
-</div>
 {% endblock %}
 
 {% block extra_js %}
+<!-- Optional: Add custom JavaScript here -->
 <script>
-  // Initialize tooltips
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-  })
+  document.addEventListener('DOMContentLoaded', function () {
+    // Add any custom JavaScript logic here
+  });
 </script>
 {% endblock %}

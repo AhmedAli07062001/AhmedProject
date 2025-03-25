@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+
 class Patient(db.Model):
     __tablename__ = 'patients'
     id = db.Column(db.Integer, primary_key=True)
@@ -37,6 +38,10 @@ class Patient(db.Model):
     city = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationship with Appointment
+    appointments = db.relationship('Appointment', backref='patient_rel', cascade='all, delete-orphan')
+
 
 class Therapist(db.Model):
     __tablename__ = 'therapists'
@@ -52,3 +57,27 @@ class Therapist(db.Model):
     designation = db.Column(db.String(255))  # Add this line
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationship with Appointment
+    appointments = db.relationship('Appointment', backref='therapist_rel', cascade='all, delete-orphan')
+
+
+class Appointment(db.Model):
+    __tablename__ = 'appointments'
+    id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
+    therapist_id = db.Column(db.Integer, db.ForeignKey('therapists.id'), nullable=False)
+    appointment_date = db.Column(db.DateTime, nullable=False)
+    appointment_time = db.Column(db.Time, nullable=False)
+    problem = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(50), nullable=False, default='Scheduled')
+    notes = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    patient = db.relationship('Patient', backref='appointments_rel')
+    therapist = db.relationship('Therapist', backref='appointments_rel')
+
+    def __repr__(self):
+        return f"<Appointment {self.id} - {self.patient.first_name} with {self.therapist.first_name}>"

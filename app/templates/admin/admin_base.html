@@ -17,6 +17,20 @@
 </head>
 
 <body>
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container mt-3">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <!-- Page wrapper starts -->
   <div class="page-wrapper">
 
@@ -30,7 +44,7 @@
       <!-- App brand -->
       <div class="app-brand ms-3">
         <a href="{{ url_for('general.home') }}" class="d-lg-block d-none">
-          <img src="{{ url_for('static', filename='images/logo1.png') }}" class="logo" alt="Medicare Admin Template">
+          <img src="{{ url_for('static', filename='images/logo1.png') }}" class="logo" alt="SpeechCare Hub Logo">
         </a>
       </div>
       <!-- Header actions -->
@@ -46,7 +60,7 @@
               <h6 class="m-0">Ahmed Ali</h6>
             </div>
             <div class="mx-3 my-2 d-grid">
-              <a href="{{url_for('auth.login')}}" class="btn btn-danger">Logout</a>
+              <a href="{{ url_for('general.home') }}" class="btn btn-danger">Logout</a>
             </div>
           </div>
         </div>
@@ -60,7 +74,7 @@
       <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-profile">
           <img src="{{ url_for('static', filename='images/doctor-3.jpg') }}" class="img-shadow img-3x me-3 rounded-5"
-            alt="Hospital Admin Templates">
+            alt="Admin Profile Picture">
           <div>
             <h5 class="profile-name">Ahmed Ali</h5>
             <p class="small profile-name">Dept Admin</p>
@@ -73,9 +87,9 @@
           <li class="{% if active_page == 'therapist_list' %}active current-page{% endif %}"><a href="{{ url_for('therapist.therapist_list') }}" class="sidebar-link"><i class="ri-file-list-line"></i> Therapist List</a></li>
           <li class="{% if active_page == 'add_therapist' %}active current-page{% endif %}"><a href="{{ url_for('admin.add_therapist') }}" class="sidebar-link"><i class="ri-hospital-line"></i> Add Therapist</a></li>
           <li class="{% if active_page == 'edit_therapist' %}active current-page{% endif %}"><a href="{{ url_for('admin.edit_therapist') }}" class="sidebar-link"><i class="ri-edit-line"></i> Edit Therapist</a></li>
-          <li class="{% if active_page == 'edit_appointment' %}active current-page{% endif %}"><a href="{{ url_for('appointment.edit_appoint') }}" class="sidebar-link"><i class="ri-calendar-line"></i> Edit Appointment</a></li>
+          <li class="{% if active_page == 'appoint_list' %}active current-page{% endif %}"><a href="{{ url_for('appointment.appoint_list') }}" class="sidebar-link"><i class="ri-file-list-line"></i>Appointment List</a></li>
+          <li class="{% if active_page == 'edit_appointment' %}active current-page{% endif %}"><a href="{{ url_for('appointment.edit_appointment') }}" class="sidebar-link"><i class="ri-calendar-line"></i> Edit Appointment</a></li>
         </ul>
-              
       </nav>
       <!-- Sidebar ends -->
 
@@ -88,7 +102,6 @@
   </div>
 
   <!-- Scripts -->
-  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ url_for('static', filename='javascript/dashboard.js') }}"></script>
